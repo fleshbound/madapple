@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import argparse
 import os
 os.environ['NO_ALBUMENTATIONS_UPDATE'] = '1'
+import argparse
 import torch
 import random
 import numpy as np
@@ -44,7 +44,6 @@ def parse_args():
 
 
 def main():
-    os.environ['NO_ALBUMENTATIONS_UPDATE'] = '1'
     args = parse_args()
 
     # Создаем директории если не существуют

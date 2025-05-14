@@ -39,7 +39,7 @@ def setup_logger(log_file_path=None):
     console_handler = logging.StreamHandler(sys.stdout)
     console_handler.setLevel(logging.INFO)
     console_handler.setFormatter(formatter)
-    logger.addHandler(console_handler)
+    # logger.addHandler(console_handler)
     
     # Принудительная очистка буфера после каждого сообщения
     console_handler.flush()

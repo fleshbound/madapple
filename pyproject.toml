@@ -1,11 +1,15 @@
 [tool.poetry]
 name = "madapple"
+package-mode = true
 version = "0.1.0"
 description = "BMSTU Bachelor's Diploma Fruit Project (aka MadApple)"
 authors = ["Valeria Avdeykina"
 ]
 readme = "README.md"
-package-mode = false
+packages = [
+  { include = 'train', from = '.' },
+  { include = 'inference', from = '.' },
+]
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.12"

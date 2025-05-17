@@ -9,6 +9,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image, ImageDraw, ImageFont
 
+def count_apples(labels):
+    unripe_count = sum(1 for label in labels if label == 1)
+    ripe_count = sum(1 for label in labels if label == 2)
+    return unripe_count, ripe_count, unripe_count + ripe_count
+
 def print_detections(results):
     """
     Выводит информацию о обнаруженных яблоках в консоль.
@@ -17,8 +22,7 @@ def print_detections(results):
         results (dict): Результаты обнаружения
     """
     # Подсчет типов яблок
-    unripe_count = sum(1 for label in results['labels'] if label == 1)
-    ripe_count = sum(1 for label in results['labels'] if label == 2)
+    unripe_count, ripe_count = count_apples(results['labels'])
     
     print("\nОбнаруженные объекты:")
     print(f"{'Класс':<15} {'Уверенность':<15} {'x1':<10} {'y1':<10} {'x2':<10} {'y2':<10}")

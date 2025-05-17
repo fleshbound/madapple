@@ -9,10 +9,10 @@ import random
 import numpy as np
 
 from trainer import Trainer
-from model import get_faster_rcnn_model
+from model.model import get_faster_rcnn_model
 from dataset import AppleDataset, get_data_loaders
 from logger import setup_logger
-from utils import seed_everything
+from utils.utils import seed_everything
 
 
 def parse_args():

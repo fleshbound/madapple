@@ -17,10 +17,10 @@ import json
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 
-from model import load_model
+from model.model import safely_load_model
 from batch_processor import process_directory
 from visualizer import visualize_results
-from utils import ensure_dir, count_apples_by_type
+from utils.utils import ensure_dir, count_apples_by_type
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Пакетное распознавание яблок на изображениях')
@@ -48,7 +48,7 @@ def main():
     # Загружаем модель с безопасной загрузкой
     if not args.quiet:
         print(f"Загрузка модели из: {args.model}")
-    model = load_model(args.model, num_classes=3, device=device, quiet=args.quiet)
+    model = safely_load_model(args.model, num_classes=3, device=device, quiet=args.quiet)
     
     # Создаем выходную директорию
     ensure_dir(args.output)

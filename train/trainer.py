@@ -8,7 +8,7 @@ import numpy as np
 import json
 from tqdm import tqdm
 import matplotlib.pyplot as plt
-from utils import calculate_map, calculate_f1_score
+from utils.utils import calculate_map, calculate_f1_score
 
 class Trainer:
     def __init__(

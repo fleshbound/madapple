@@ -1,16 +1,100 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""
+Модуль с утилитами для работы с программой обнаружения яблок.
+"""
+
 import os
+import torch
 import random
 import numpy as np
-import torch
+import time
 from torchvision.ops import box_iou
 from pycocotools.coco import COCO
 from pycocotools.cocoeval import COCOeval
 import tempfile
 import json
 
+class Timer:
+    """
+    Класс для замера времени выполнения кода.
+    """
+    def __init__(self, name="Operation", verbose=True):
+        self.name = name
+        self.verbose = verbose
+        
+    def __enter__(self):
+        self.start_time = time.time()
+        return self
+        
+    def __exit__(self, *args):
+        self.end_time = time.time()
+        self.elapsed_time = self.end_time - self.start_time
+        if self.verbose:
+            print(f"{self.name} выполнена за {self.elapsed_time:.4f} секунд")
+
+def ensure_dir(directory):
+    """
+    Создает директорию, если она не существует.
+    
+    Args:
+        directory (str): Путь к директории
+    """
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+def compute_iou(box1, box2):
+    """
+    Вычисляет IoU (Intersection over Union) для двух боксов.
+    
+    Args:
+        box1 (np.ndarray): Первый бокс в формате [x1, y1, x2, y2]
+        box2 (np.ndarray): Второй бокс в формате [x1, y1, x2, y2]
+    
+    Returns:
+        float: Значение IoU (0-1)
+    """
+    # Определяем координаты пересечения боксов
+    x1 = max(box1[0], box2[0])
+    y1 = max(box1[1], box2[1])
+    x2 = min(box1[2], box2[2])
+    y2 = min(box1[3], box2[3])
+    
+    # Вычисляем площадь пересечения
+    intersection_area = max(0, x2 - x1) * max(0, y2 - y1)
+    
+    # Вычисляем площади боксов
+    box1_area = (box1[2] - box1[0]) * (box1[3] - box1[1])
+    box2_area = (box2[2] - box2[0]) * (box2[3] - box2[1])
+    
+    # Вычисляем IoU
+    union_area = box1_area + box2_area - intersection_area
+    
+    if union_area <= 0:
+        return 0
+    
+    return intersection_area / union_area
+
+def count_apples_by_type(results):
+    """
+    Подсчитывает количество яблок каждого типа в результатах обнаружения.
+    
+    Args:
+        results (dict): Результаты обнаружения
+    
+    Returns:
+        tuple: (unripe_count, ripe_count, total_count)
+    """
+    if 'labels' not in results:
+        return 0, 0, 0
+    
+    unripe_count = sum(1 for label in results['labels'] if label == 1)
+    ripe_count = sum(1 for label in results['labels'] if label == 2)
+    total_count = unripe_count + ripe_count
+    
+    return unripe_count, ripe_count, total_count
+    
 
 def seed_everything(seed):
     """
@@ -28,7 +112,6 @@ def seed_everything(seed):
         torch.cuda.manual_seed_all(seed)
         torch.backends.cudnn.deterministic = True
         torch.backends.cudnn.benchmark = False
-
 
 def calculate_map_simple(predictions, targets, iou_threshold=0.5, score_threshold=0.5):
     """
@@ -438,74 +521,3 @@ def create_coco_format(data, is_gt=True):
             continue
     
     return coco_format
-
-def visualize_results(image, prediction, category_names, threshold=0.5):
-    """
-    Визуализация результатов обнаружения на изображении.
-
-    Args:
-        image: Исходное изображение (тензор)
-        prediction: Предсказание модели
-        category_names: Словарь соответствия id классов их названиям
-        threshold: Порог уверенности для отображения предсказаний
-
-    Returns:
-        plt.Figure: Объект Figure с визуализацией
-    """
-    import matplotlib.pyplot as plt
-    import matplotlib.patches as patches
-    from matplotlib.colors import to_rgba
-
-    # Преобразование изображения из тензора в numpy array
-    image_np = image.permute(1, 2, 0).cpu().numpy()
-
-    # Нормализация для отображения
-    image_np = (image_np - image_np.min()) / (image_np.max() - image_np.min())
-
-    fig, ax = plt.subplots(1, figsize=(12, 9))
-    ax.imshow(image_np)
-
-    # Цвета для разных классов
-    colors = {
-        1: 'yellow',  # незрелое яблоко
-        2: 'red'  # зрелое яблоко
-    }
-
-    # Отображение предсказанных боксов
-    if "boxes" in prediction:
-        boxes = prediction["boxes"].cpu().numpy()
-        scores = prediction["scores"].cpu().numpy()
-        labels = prediction["labels"].cpu().numpy()
-
-        for box, score, label in zip(boxes, scores, labels):
-            if score > threshold:
-                x1, y1, x2, y2 = box
-                width = x2 - x1
-                height = y2 - y1
-
-                # Получение цвета для класса
-                color = colors.get(label, 'white')
-
-                # Добавление прямоугольника
-                rect = patches.Rectangle(
-                    (x1, y1), width, height,
-                    linewidth=2,
-                    edgecolor=color,
-                    facecolor=to_rgba(color, 0.3)
-                )
-                ax.add_patch(rect)
-
-                # Добавление метки
-                class_name = category_names.get(label, f"Class {label}")
-                ax.text(
-                    x1, y1 - 5,
-                    f"{class_name}: {score:.2f}",
-                    color='white',
-                    fontweight='bold',
-                    bbox=dict(facecolor=color, alpha=0.8, edgecolor='none', pad=2)
-                )
-
-    plt.axis('off')
-    plt.tight_layout()
-
-    return fig

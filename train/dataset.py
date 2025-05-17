@@ -293,74 +293,74 @@ def collate_fn(batch):
     """
     return tuple(zip(*batch))
 
-def get_transform(train=True, augmentation_prob=0.5, normalize=True, custom_mean=None, custom_std=None):
-    """
-    Создание трансформаций для обучения или валидации с поддержкой нормализации.
+# def get_transform(train=True, augmentation_prob=0.5, normalize=True, custom_mean=None, custom_std=None):
+    # """
+    # Создание трансформаций для обучения или валидации с поддержкой нормализации.
     
-    Args:
-        train (bool): Флаг режима трансформаций (обучение/валидация)
-        augmentation_prob (float): Вероятность применения аугментаций
-        normalize (bool): Применять ли нормализацию
-        custom_mean (list, optional): Пользовательские средние значения для нормализации
-        custom_std (list, optional): Пользовательские стандартные отклонения для нормализации
+    # Args:
+        # train (bool): Флаг режима трансформаций (обучение/валидация)
+        # augmentation_prob (float): Вероятность применения аугментаций
+        # normalize (bool): Применять ли нормализацию
+        # custom_mean (list, optional): Пользовательские средние значения для нормализации
+        # custom_std (list, optional): Пользовательские стандартные отклонения для нормализации
     
-    Returns:
-        albumentations.Compose: Набор трансформаций
-    """
-    # Средние значения и стандартные отклонения для нормализации
-    mean = custom_mean if custom_mean is not None else [0.485, 0.456, 0.406]  # ImageNet по умолчанию
-    std = custom_std if custom_std is not None else [0.229, 0.224, 0.225]  # ImageNet по умолчанию
+    # Returns:
+        # albumentations.Compose: Набор трансформаций
+    # """
+    # # Средние значения и стандартные отклонения для нормализации
+    # mean = custom_mean if custom_mean is not None else [0.485, 0.456, 0.406]  # ImageNet по умолчанию
+    # std = custom_std if custom_std is not None else [0.229, 0.224, 0.225]  # ImageNet по умолчанию
     
-    if train:
-        transforms = [
-            # Геометрические преобразования
-            A.HorizontalFlip(p=augmentation_prob),
-            A.VerticalFlip(p=augmentation_prob * 0.3),  # Вертикальный флип реже
-            A.Rotate(limit=30, p=augmentation_prob * 0.7, border_mode=0),  # Поворот с обработкой границ
+    # if train:
+        # transforms = [
+            # # Геометрические преобразования
+            # A.HorizontalFlip(p=augmentation_prob),
+            # A.VerticalFlip(p=augmentation_prob * 0.3),  # Вертикальный флип реже
+            # A.Rotate(limit=30, p=augmentation_prob * 0.7, border_mode=0),  # Поворот с обработкой границ
             
-            # Преобразования цвета и контраста
-            A.RandomBrightnessContrast(brightness_limit=0.2, contrast_limit=0.2, p=augmentation_prob),
-            A.HueSaturationValue(hue_shift_limit=15, sat_shift_limit=25, val_shift_limit=10, 
-                                p=augmentation_prob * 0.5),
-            A.GaussianBlur(blur_limit=(3, 5), p=augmentation_prob * 0.3),
+            # # Преобразования цвета и контраста
+            # A.RandomBrightnessContrast(brightness_limit=0.2, contrast_limit=0.2, p=augmentation_prob),
+            # A.HueSaturationValue(hue_shift_limit=15, sat_shift_limit=25, val_shift_limit=10, 
+                                # p=augmentation_prob * 0.5),
+            # A.GaussianBlur(blur_limit=(3, 5), p=augmentation_prob * 0.3),
             
-            # Имитация разного освещения
-            A.RandomShadow(p=augmentation_prob * 0.3),
-            A.RandomSunFlare(p=augmentation_prob * 0.1),
+            # # Имитация разного освещения
+            # A.RandomShadow(p=augmentation_prob * 0.3),
+            # A.RandomSunFlare(p=augmentation_prob * 0.1),
             
-            # Добавление шума
-            A.GaussNoise(var_limit=(10, 50), p=augmentation_prob * 0.2),
+            # # Добавление шума
+            # A.GaussNoise(var_limit=(10, 50), p=augmentation_prob * 0.2),
             
-            # Масштабирование и обрезка
-            A.RandomResizedCrop(height=512, width=512, scale=(0.8, 1.0), ratio=(0.9, 1.1), p=augmentation_prob * 0.5),
-        ]
+            # # Масштабирование и обрезка
+            # A.RandomResizedCrop(height=512, width=512, scale=(0.8, 1.0), ratio=(0.9, 1.1), p=augmentation_prob * 0.5),
+        # ]
         
-        # Добавляем имитацию пасмурной погоды
-        weather_transform = A.OneOf([
-            A.RandomFog(fog_coef_lower=0.1, fog_coef_upper=0.3, p=0.5),
-            A.RandomRain(p=0.3),
-            A.RandomSnow(p=0.2),
-        ], p=augmentation_prob * 0.4)
+        # # Добавляем имитацию пасмурной погоды
+        # weather_transform = A.OneOf([
+            # A.RandomFog(fog_coef_lower=0.1, fog_coef_upper=0.3, p=0.5),
+            # A.RandomRain(p=0.3),
+            # A.RandomSnow(p=0.2),
+        # ], p=augmentation_prob * 0.4)
         
-        transforms.append(weather_transform)
+        # transforms.append(weather_transform)
         
-    else:  # Валидация
-        transforms = [
-            A.Resize(512, 512),
-        ]
+    # else:  # Валидация
+        # transforms = [
+            # A.Resize(512, 512),
+        # ]
     
-    # ВАЖНОЕ ИЗМЕНЕНИЕ: Преобразование к типу float32 и нормализация
-    # Сначала преобразуем к диапазону [0,1]
-    transforms.append(A.ToFloat(max_value=255.0))
+    # # ВАЖНОЕ ИЗМЕНЕНИЕ: Преобразование к типу float32 и нормализация
+    # # Сначала преобразуем к диапазону [0,1]
+    # transforms.append(A.ToFloat(max_value=255.0))
     
-    # Добавление нормализации, если требуется
-    #if normalize:
-    #    transforms.append(A.Normalize(mean=mean, std=std))
+    # # Добавление нормализации, если требуется
+    # #if normalize:
+    # #    transforms.append(A.Normalize(mean=mean, std=std))
     
-    # Финальное преобразование в тензор
-    transforms.append(ToTensorV2())
+    # # Финальное преобразование в тензор
+    # transforms.append(ToTensorV2())
     
-    return A.Compose(
-        transforms, 
-        bbox_params=A.BboxParams(format='pascal_voc', label_fields=['labels'])
-    )   
+    # return A.Compose(
+        # transforms, 
+        # bbox_params=A.BboxParams(format='pascal_voc', label_fields=['labels'])
+    # )   

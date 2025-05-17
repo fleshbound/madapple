@@ -14,7 +14,7 @@ import time
 import torch
 import numpy as np
 
-from model import load_model
+from model.model import safely_load_model
 from image_processor import preprocess_image
 from detector import detect_apples
 from visualizer import visualize_results, print_detections
@@ -45,7 +45,7 @@ def main():
     # Загружаем модель с безопасной загрузкой
     if not args.quiet and not args.raw:
         print(f"Загрузка модели из: {args.model}")
-    model = load_model(args.model, num_classes=3, device=device, quiet=args.quiet or args.raw)
+    model = safely_load_model(args.model, num_classes=3, device=device, quiet=args.quiet or args.raw)
 
     # Загружаем и обрабатываем изображение
     if not args.quiet and not args.raw:

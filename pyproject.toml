@@ -11,6 +11,7 @@ packages = [
   { include = 'inference', from = '.' },
   { include = 'model', from = '.' },
   { include = 'utils', from = '.' },
+  { include = 'research', from = '.' },
 ]
 
 [tool.poetry.dependencies]

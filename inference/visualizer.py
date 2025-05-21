@@ -22,7 +22,7 @@ def print_detections(results):
         results (dict): Результаты обнаружения
     """
     # Подсчет типов яблок
-    unripe_count, ripe_count = count_apples(results['labels'])
+    unripe_count, ripe_count, total = count_apples(results['labels'])
     
     print("\nОбнаруженные объекты:")
     print(f"{'Класс':<15} {'Уверенность':<15} {'x1':<10} {'y1':<10} {'x2':<10} {'y2':<10}")
@@ -58,8 +58,8 @@ def visualize_results(image, results, output_path=None, show_image=True, show_la
     
     # Названия классов
     class_names = {
-        1: "Unripe apple",
-        2: "Ripe apple"
+        1: "Незрелый",
+        2: "Зрелый"
     }
     
     # Счетчики яблок
@@ -133,12 +133,13 @@ def visualize_results(image, results, output_path=None, show_image=True, show_la
         plt.figure(figsize=(12, 10))
         plt.imshow(vis_image)
         plt.axis('off')
-        plt.title(f"Found: {unripe_count} unripe and {ripe_count} ripe apples", fontsize=14)
+        # plt.title(f"Найдено: {unripe_count} незрелых и {ripe_count} зрелых плодов", fontsize=14)
+        plt.title(f"Найдено: {ripe_count} зрелых плодов", fontsize=14)
         
         # Добавляем легенду
         import matplotlib.patches as mpatches
-        unripe_patch = mpatches.Patch(color='yellow', label='Unripe apples')
-        ripe_patch = mpatches.Patch(color='red', label='Ripe apples')
+        unripe_patch = mpatches.Patch(color='yellow', label='Незрелые')
+        ripe_patch = mpatches.Patch(color='red', label='Зрелые')
         plt.legend(handles=[unripe_patch, ripe_patch], loc='upper right', fontsize=12)
         
         # Сохраняем результат, если указан путь

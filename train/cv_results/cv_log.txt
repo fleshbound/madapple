@@ -1,717 +1,221 @@
-2025-05-24 23:37:58,449 - apple_detector - INFO - Logger setup complete. This message should appear in both console and log file.
-2025-05-24 23:37:58,727 - apple_detector - INFO - Загружен датасет: 670 изображений
-2025-05-24 23:37:58,727 - apple_detector - INFO - Устройство: cuda
-2025-05-24 23:37:58,727 - apple_detector - INFO - Количество фолдов: 5
-2025-05-24 23:37:58,728 - apple_detector - INFO - ================================================================================
-2025-05-24 23:37:58,728 - apple_detector - INFO - НАЧАЛО КРОСС-ВАЛИДАЦИИ
-2025-05-24 23:37:58,728 - apple_detector - INFO - ================================================================================
-2025-05-24 23:37:58,729 - apple_detector - INFO - Создание фолдов для кросс-валидации...
-2025-05-24 23:38:07,045 - apple_detector - INFO - Использована стратифицированная кросс-валидация
-2025-05-24 23:38:07,045 - apple_detector - INFO - Размеры фолдов: [134, 134, 134, 134, 134]
-2025-05-24 23:38:07,046 - apple_detector - INFO - Среднее ± стд: 134.0 ± 0.0
-2025-05-24 23:38:07,047 - apple_detector - INFO - 
---- FOLD 1/5 ---
-2025-05-24 23:38:07,047 - apple_detector - INFO - Train samples: 536, Val samples: 134
-2025-05-24 23:38:07,755 - apple_detector - INFO - Оценка fold 1/5...
-2025-05-24 23:38:34,099 - apple_detector - INFO - Результаты Fold 1:
-2025-05-24 23:38:34,099 - apple_detector - INFO -   mAP@0.5: 0.6007
-2025-05-24 23:38:34,100 - apple_detector - INFO -   F1@0.5:  0.7228
-2025-05-24 23:38:34,100 - apple_detector - INFO -   Обнаружено незрелых: 2688/3684 (72.96%)
-2025-05-24 23:38:34,100 - apple_detector - INFO -   Обнаружено зрелых: 7155/7679 (93.18%)
-2025-05-24 23:38:34,100 - apple_detector - INFO - Время выполнения fold 1: 27.05 сек
-2025-05-24 23:38:34,101 - apple_detector - INFO - 
---- FOLD 2/5 ---
-2025-05-24 23:38:34,101 - apple_detector - INFO - Train samples: 536, Val samples: 134
-2025-05-24 23:38:34,797 - apple_detector - INFO - Оценка fold 2/5...
-2025-05-24 23:39:00,592 - apple_detector - INFO - Результаты Fold 2:
-2025-05-24 23:39:00,593 - apple_detector - INFO -   mAP@0.5: 0.5973
-2025-05-24 23:39:00,593 - apple_detector - INFO -   F1@0.5:  0.7118
-2025-05-24 23:39:00,594 - apple_detector - INFO -   Обнаружено незрелых: 2997/4296 (69.76%)
-2025-05-24 23:39:00,594 - apple_detector - INFO -   Обнаружено зрелых: 6802/7221 (94.20%)
-2025-05-24 23:39:00,595 - apple_detector - INFO - Время выполнения fold 2: 26.49 сек
-2025-05-24 23:39:00,595 - apple_detector - INFO - 
---- FOLD 3/5 ---
-2025-05-24 23:39:00,595 - apple_detector - INFO - Train samples: 536, Val samples: 134
-2025-05-24 23:39:01,347 - apple_detector - INFO - Оценка fold 3/5...
-2025-05-24 23:39:27,051 - apple_detector - INFO - Результаты Fold 3:
-2025-05-24 23:39:27,052 - apple_detector - INFO -   mAP@0.5: 0.5994
-2025-05-24 23:39:27,053 - apple_detector - INFO -   F1@0.5:  0.7189
-2025-05-24 23:39:27,053 - apple_detector - INFO -   Обнаружено незрелых: 2856/4087 (69.88%)
-2025-05-24 23:39:27,053 - apple_detector - INFO -   Обнаружено зрелых: 7663/7757 (98.79%)
-2025-05-24 23:39:27,053 - apple_detector - INFO - Время выполнения fold 3: 26.46 сек
-2025-05-24 23:39:27,054 - apple_detector - INFO - 
---- FOLD 4/5 ---
-2025-05-24 23:39:27,054 - apple_detector - INFO - Train samples: 536, Val samples: 134
-2025-05-24 23:39:27,775 - apple_detector - INFO - Оценка fold 4/5...
-2025-05-24 23:39:56,013 - apple_detector - INFO - Результаты Fold 4:
-2025-05-24 23:39:56,013 - apple_detector - INFO -   mAP@0.5: 0.6414
-2025-05-24 23:39:56,014 - apple_detector - INFO -   F1@0.5:  0.7284
-2025-05-24 23:39:56,015 - apple_detector - INFO -   Обнаружено незрелых: 2741/3757 (72.96%)
-2025-05-24 23:39:56,015 - apple_detector - INFO -   Обнаружено зрелых: 7439/7962 (93.43%)
-2025-05-24 23:39:56,018 - apple_detector - INFO - Время выполнения fold 4: 28.96 сек
-2025-05-24 23:39:56,018 - apple_detector - INFO - 
---- FOLD 5/5 ---
-2025-05-24 23:39:56,018 - apple_detector - INFO - Train samples: 536, Val samples: 134
-2025-05-24 23:39:56,818 - apple_detector - INFO - Оценка fold 5/5...
-2025-05-24 23:40:25,148 - apple_detector - INFO - Результаты Fold 5:
-2025-05-24 23:40:25,149 - apple_detector - INFO -   mAP@0.5: 0.5964
-2025-05-24 23:40:25,149 - apple_detector - INFO -   F1@0.5:  0.7105
-2025-05-24 23:40:25,150 - apple_detector - INFO -   Обнаружено незрелых: 2792/3930 (71.04%)
-2025-05-24 23:40:25,150 - apple_detector - INFO -   Обнаружено зрелых: 7272/7703 (94.40%)
-2025-05-24 23:40:25,150 - apple_detector - INFO - Время выполнения fold 5: 29.13 сек
-2025-05-24 23:40:25,150 - apple_detector - INFO - 
-==================================================
-2025-05-24 23:40:25,151 - apple_detector - INFO - АГРЕГИРОВАННЫЕ РЕЗУЛЬТАТЫ
-2025-05-24 23:40:25,151 - apple_detector - INFO - ==================================================
-2025-05-24 23:40:25,152 - apple_detector - INFO - 
-Основные метрики (среднее ± стандартное отклонение):
-2025-05-24 23:40:25,152 - apple_detector - INFO -   mAP_iou0.5_conf0.5       : 0.6070 ± 0.0173 [0.5964, 0.6414]
-2025-05-24 23:40:25,152 - apple_detector - INFO -   F1_iou0.5_conf0.5        : 0.7185 ± 0.0067 [0.7105, 0.7284]
-2025-05-24 23:40:25,152 - apple_detector - INFO -   detection_rate_unripe    : 0.7132 ± 0.0141 [0.6976, 0.7296]
-2025-05-24 23:40:25,152 - apple_detector - INFO -   detection_rate_ripe      : 0.9480 ± 0.0205 [0.9318, 0.9879]
-2025-05-24 23:40:25,152 - apple_detector - INFO - 
-95% доверительные интервалы:
-2025-05-24 23:40:25,153 - apple_detector - INFO -   mAP_iou0.5_conf0.5       : [0.5965, 0.6374]
-2025-05-24 23:40:25,153 - apple_detector - INFO -   F1_iou0.5_conf0.5        : [0.7106, 0.7279]
-2025-05-24 23:40:25,153 - apple_detector - INFO - 
-==================================================
-2025-05-24 23:40:25,153 - apple_detector - INFO - СТАТИСТИЧЕСКИЙ АНАЛИЗ
-2025-05-24 23:40:25,153 - apple_detector - INFO - ==================================================
-2025-05-24 23:40:25,154 - apple_detector - INFO - mAP_iou0.5_conf0.5:
-2025-05-24 23:40:25,154 - apple_detector - INFO -   Коэффициент вариации: 0.0284
-2025-05-24 23:40:25,154 - apple_detector - INFO -   Стабильность: высокая
-2025-05-24 23:40:25,155 - apple_detector - INFO - F1_iou0.5_conf0.5:
-2025-05-24 23:40:25,155 - apple_detector - INFO -   Коэффициент вариации: 0.0094
-2025-05-24 23:40:25,155 - apple_detector - INFO -   Стабильность: высокая
-2025-05-24 23:40:25,156 - apple_detector - INFO - 
-Анализ распределения:
-2025-05-24 23:40:25,156 - apple_detector - INFO -   mAP_iou0.5_conf0.5: Шапиро-Уилк - не нормальное (p=0.0018)
-2025-05-24 23:40:25,156 - apple_detector - INFO -   F1_iou0.5_conf0.5: Шапиро-Уилк - нормальное (p=0.6514)
-2025-05-24 23:40:25,156 - apple_detector - INFO - 
+2025-05-25 00:51:16,166 - apple_detector - INFO - Logger setup complete. This message should appear in both console and log file.
+2025-05-25 00:51:16,438 - apple_detector - INFO - Загружен датасет: 670 изображений
+2025-05-25 00:51:16,439 - apple_detector - INFO - Устройство: cuda
+2025-05-25 00:51:16,440 - apple_detector - INFO - Количество фолдов: 12
+2025-05-25 00:51:16,446 - apple_detector - INFO - ================================================================================
+2025-05-25 00:51:16,446 - apple_detector - INFO - НАЧАЛО КРОСС-ВАЛИДАЦИИ
+2025-05-25 00:51:16,446 - apple_detector - INFO - ================================================================================
+2025-05-25 00:51:16,448 - apple_detector - INFO - Создание фолдов для кросс-валидации...
+2025-05-25 00:51:23,811 - apple_detector - INFO - Использована стратифицированная кросс-валидация
+2025-05-25 00:51:23,812 - apple_detector - INFO - Размеры фолдов: [56, 56, 56, 56, 56, 56, 56, 56, 56, 56, 55, 55]
+2025-05-25 00:51:23,813 - apple_detector - INFO - Среднее ± стд: 55.8 ± 0.4
+2025-05-25 00:51:23,816 - apple_detector - INFO - 
+--- FOLD 1/12 ---
+2025-05-25 00:51:23,817 - apple_detector - INFO - Train samples: 614, Val samples: 56
+2025-05-25 00:51:24,428 - apple_detector - INFO - Оценка fold 1/12...
+2025-05-25 00:51:40,269 - apple_detector - INFO - Результаты Fold 1:
+2025-05-25 00:51:40,269 - apple_detector - INFO -   mAP@0.5: 0.6044
+2025-05-25 00:51:40,270 - apple_detector - INFO -   F1@0.5:  0.7286
+2025-05-25 00:51:40,270 - apple_detector - INFO -   Обнаружено незрелых: 1186/1722 (68.87%)
+2025-05-25 00:51:40,271 - apple_detector - INFO -   Обнаружено зрелых: 3107/3299 (94.18%)
+2025-05-25 00:51:40,271 - apple_detector - INFO - Время выполнения fold 1: 16.45 сек
+2025-05-25 00:51:40,271 - apple_detector - INFO - 
+--- FOLD 2/12 ---
+2025-05-25 00:51:40,271 - apple_detector - INFO - Train samples: 614, Val samples: 56
+2025-05-25 00:51:40,837 - apple_detector - INFO - Оценка fold 2/12...
+2025-05-25 00:51:56,186 - apple_detector - INFO - Результаты Fold 2:
+2025-05-25 00:51:56,187 - apple_detector - INFO -   mAP@0.5: 0.5989
+2025-05-25 00:51:56,187 - apple_detector - INFO -   F1@0.5:  0.7139
+2025-05-25 00:51:56,188 - apple_detector - INFO -   Обнаружено незрелых: 1184/1486 (79.68%)
+2025-05-25 00:51:56,188 - apple_detector - INFO -   Обнаружено зрелых: 2921/3194 (91.45%)
+2025-05-25 00:51:56,188 - apple_detector - INFO - Время выполнения fold 2: 15.91 сек
+2025-05-25 00:51:56,188 - apple_detector - INFO - 
+--- FOLD 3/12 ---
+2025-05-25 00:51:56,188 - apple_detector - INFO - Train samples: 614, Val samples: 56
+2025-05-25 00:51:56,704 - apple_detector - INFO - Оценка fold 3/12...
+2025-05-25 00:52:12,045 - apple_detector - INFO - Результаты Fold 3:
+2025-05-25 00:52:12,046 - apple_detector - INFO -   mAP@0.5: 0.5947
+2025-05-25 00:52:12,046 - apple_detector - INFO -   F1@0.5:  0.7048
+2025-05-25 00:52:12,046 - apple_detector - INFO -   Обнаружено незрелых: 1111/1630 (68.16%)
+2025-05-25 00:52:12,047 - apple_detector - INFO -   Обнаружено зрелых: 2909/3118 (93.30%)
+2025-05-25 00:52:12,047 - apple_detector - INFO - Время выполнения fold 3: 15.86 сек
+2025-05-25 00:52:12,047 - apple_detector - INFO - 
+--- FOLD 4/12 ---
+2025-05-25 00:52:12,047 - apple_detector - INFO - Train samples: 614, Val samples: 56
+2025-05-25 00:52:12,679 - apple_detector - INFO - Оценка fold 4/12...
+2025-05-25 00:52:28,002 - apple_detector - INFO - Результаты Fold 4:
+2025-05-25 00:52:28,003 - apple_detector - INFO -   mAP@0.5: 0.6009
+2025-05-25 00:52:28,003 - apple_detector - INFO -   F1@0.5:  0.7204
+2025-05-25 00:52:28,004 - apple_detector - INFO -   Обнаружено незрелых: 1318/1830 (72.02%)
+2025-05-25 00:52:28,004 - apple_detector - INFO -   Обнаружено зрелых: 2793/2837 (98.45%)
+2025-05-25 00:52:28,004 - apple_detector - INFO - Время выполнения fold 4: 15.96 сек
+2025-05-25 00:52:28,004 - apple_detector - INFO - 
+--- FOLD 5/12 ---
+2025-05-25 00:52:28,004 - apple_detector - INFO - Train samples: 614, Val samples: 56
+2025-05-25 00:52:28,526 - apple_detector - INFO - Оценка fold 5/12...
+2025-05-25 00:52:43,699 - apple_detector - INFO - Результаты Fold 5:
+2025-05-25 00:52:43,699 - apple_detector - INFO -   mAP@0.5: 0.5992
+2025-05-25 00:52:43,700 - apple_detector - INFO -   F1@0.5:  0.7166
+2025-05-25 00:52:43,700 - apple_detector - INFO -   Обнаружено незрелых: 1215/1782 (68.18%)
+2025-05-25 00:52:43,701 - apple_detector - INFO -   Обнаружено зрелых: 2844/3057 (93.03%)
+2025-05-25 00:52:43,701 - apple_detector - INFO - Время выполнения fold 5: 15.69 сек
+2025-05-25 00:52:43,701 - apple_detector - INFO - 
+--- FOLD 6/12 ---
+2025-05-25 00:52:43,701 - apple_detector - INFO - Train samples: 614, Val samples: 56
+2025-05-25 00:52:44,342 - apple_detector - INFO - Оценка fold 6/12...
+2025-05-25 00:52:59,589 - apple_detector - INFO - Результаты Fold 6:
+2025-05-25 00:52:59,590 - apple_detector - INFO -   mAP@0.5: 0.6390
+2025-05-25 00:52:59,590 - apple_detector - INFO -   F1@0.5:  0.7236
+2025-05-25 00:52:59,591 - apple_detector - INFO -   Обнаружено незрелых: 1167/1562 (74.71%)
+2025-05-25 00:52:59,591 - apple_detector - INFO -   Обнаружено зрелых: 3105/3174 (97.83%)
+2025-05-25 00:52:59,591 - apple_detector - INFO - Время выполнения fold 6: 15.89 сек
+2025-05-25 00:52:59,591 - apple_detector - INFO - 
+--- FOLD 7/12 ---
+2025-05-25 00:52:59,591 - apple_detector - INFO - Train samples: 614, Val samples: 56
+2025-05-25 00:53:00,112 - apple_detector - INFO - Оценка fold 7/12...
+2025-05-25 00:53:16,597 - apple_detector - INFO - Результаты Fold 7:
+2025-05-25 00:53:16,598 - apple_detector - INFO -   mAP@0.5: 0.6005
+2025-05-25 00:53:16,599 - apple_detector - INFO -   F1@0.5:  0.7224
+2025-05-25 00:53:16,599 - apple_detector - INFO -   Обнаружено незрелых: 1252/1867 (67.06%)
+2025-05-25 00:53:16,599 - apple_detector - INFO -   Обнаружено зрелых: 3235/3256 (99.36%)
+2025-05-25 00:53:16,599 - apple_detector - INFO - Время выполнения fold 7: 17.01 сек
+2025-05-25 00:53:16,599 - apple_detector - INFO - 
+--- FOLD 8/12 ---
+2025-05-25 00:53:16,600 - apple_detector - INFO - Train samples: 614, Val samples: 56
+2025-05-25 00:53:17,268 - apple_detector - INFO - Оценка fold 8/12...
+2025-05-25 00:53:34,612 - apple_detector - INFO - Результаты Fold 8:
+2025-05-25 00:53:34,613 - apple_detector - INFO -   mAP@0.5: 0.5627
+2025-05-25 00:53:34,613 - apple_detector - INFO -   F1@0.5:  0.7132
+2025-05-25 00:53:34,614 - apple_detector - INFO -   Обнаружено незрелых: 1164/1640 (70.98%)
+2025-05-25 00:53:34,614 - apple_detector - INFO -   Обнаружено зрелых: 3236/3567 (90.72%)
+2025-05-25 00:53:34,614 - apple_detector - INFO - Время выполнения fold 8: 18.01 сек
+2025-05-25 00:53:34,614 - apple_detector - INFO - 
+--- FOLD 9/12 ---
+2025-05-25 00:53:34,614 - apple_detector - INFO - Train samples: 614, Val samples: 56
+2025-05-25 00:53:35,200 - apple_detector - INFO - Оценка fold 9/12...
+2025-05-25 00:53:51,152 - apple_detector - INFO - Результаты Fold 9:
+2025-05-25 00:53:51,152 - apple_detector - INFO -   mAP@0.5: 0.6416
+2025-05-25 00:53:51,153 - apple_detector - INFO -   F1@0.5:  0.7251
+2025-05-25 00:53:51,153 - apple_detector - INFO -   Обнаружено незрелых: 1091/1446 (75.45%)
+2025-05-25 00:53:51,153 - apple_detector - INFO -   Обнаружено зрелых: 2963/3108 (95.33%)
+2025-05-25 00:53:51,154 - apple_detector - INFO - Время выполнения fold 9: 16.54 сек
+2025-05-25 00:53:51,154 - apple_detector - INFO - 
+--- FOLD 10/12 ---
+2025-05-25 00:53:51,154 - apple_detector - INFO - Train samples: 614, Val samples: 56
+2025-05-25 00:53:51,811 - apple_detector - INFO - Оценка fold 10/12...
+2025-05-25 00:54:07,403 - apple_detector - INFO - Результаты Fold 10:
+2025-05-25 00:54:07,404 - apple_detector - INFO -   mAP@0.5: 0.6052
+2025-05-25 00:54:07,404 - apple_detector - INFO -   F1@0.5:  0.7307
+2025-05-25 00:54:07,404 - apple_detector - INFO -   Обнаружено незрелых: 1040/1453 (71.58%)
+2025-05-25 00:54:07,405 - apple_detector - INFO -   Обнаружено зрелых: 3123/3217 (97.08%)
+2025-05-25 00:54:07,405 - apple_detector - INFO - Время выполнения fold 10: 16.25 сек
+2025-05-25 00:54:07,405 - apple_detector - INFO - 
+--- FOLD 11/12 ---
+2025-05-25 00:54:07,405 - apple_detector - INFO - Train samples: 615, Val samples: 55
+2025-05-25 00:54:07,936 - apple_detector - INFO - Оценка fold 11/12...
+2025-05-25 00:54:24,420 - apple_detector - INFO - Результаты Fold 11:
+2025-05-25 00:54:24,421 - apple_detector - INFO -   mAP@0.5: 0.5965
+2025-05-25 00:54:24,422 - apple_detector - INFO -   F1@0.5:  0.7097
+2025-05-25 00:54:24,422 - apple_detector - INFO -   Обнаружено незрелых: 1163/1669 (69.68%)
+2025-05-25 00:54:24,422 - apple_detector - INFO -   Обнаружено зрелых: 2992/3225 (92.78%)
+2025-05-25 00:54:24,422 - apple_detector - INFO - Время выполнения fold 11: 17.02 сек
+2025-05-25 00:54:24,422 - apple_detector - INFO - 
+--- FOLD 12/12 ---
+2025-05-25 00:54:24,423 - apple_detector - INFO - Train samples: 615, Val samples: 55
+2025-05-25 00:54:25,143 - apple_detector - INFO - Оценка fold 12/12...
+2025-05-25 00:54:41,752 - apple_detector - INFO - Результаты Fold 12:
+2025-05-25 00:54:41,753 - apple_detector - INFO -   mAP@0.5: 0.5958
+2025-05-25 00:54:41,753 - apple_detector - INFO -   F1@0.5:  0.7130
+2025-05-25 00:54:41,753 - apple_detector - INFO -   Обнаружено незрелых: 1183/1667 (70.97%)
+2025-05-25 00:54:41,754 - apple_detector - INFO -   Обнаружено зрелых: 3103/3270 (94.89%)
+2025-05-25 00:54:41,754 - apple_detector - INFO - Время выполнения fold 12: 17.33 сек
+2025-05-25 00:54:41,754 - apple_detector - INFO - Выполнение агрегации результатов...
+2025-05-25 00:54:41,755 - apple_detector - INFO - Выполнение расширенного статистического анализа...
+2025-05-25 00:54:41,755 - apple_detector - INFO - mAP_iou0.5_conf0.5:
+2025-05-25 00:54:41,756 - apple_detector - INFO -   Коэффициент вариации: 0.0325
+2025-05-25 00:54:41,756 - apple_detector - INFO -   Стабильность: высокая
+2025-05-25 00:54:41,756 - apple_detector - INFO -   Среднее: 0.6033
+2025-05-25 00:54:41,756 - apple_detector - INFO -   Медиана: 0.5999
+2025-05-25 00:54:41,756 - apple_detector - INFO -   Стд. откл.: 0.0196
+2025-05-25 00:54:41,756 - apple_detector - INFO -   Асимметрия: 0.3218
+2025-05-25 00:54:41,757 - apple_detector - INFO -   Эксцесс: 0.0742
+2025-05-25 00:54:41,799 - apple_detector - INFO -   Тесты распределений:
+2025-05-25 00:54:41,799 - apple_detector - INFO -     normal_shapiro: p=0.0165, подходит=False
+2025-05-25 00:54:41,799 - apple_detector - INFO -     normal_dagostino: p=0.2980, подходит=True
+2025-05-25 00:54:41,800 - apple_detector - INFO -     beta: p=0.1977, подходит=True
+2025-05-25 00:54:41,800 - apple_detector - INFO -     uniform: p=0.1295, подходит=True
+2025-05-25 00:54:41,800 - apple_detector - INFO -     lognormal: p=0.2263, подходит=True
+2025-05-25 00:54:41,801 - apple_detector - INFO -     truncated_normal: p=0.1156, подходит=True
+2025-05-25 00:54:41,801 - apple_detector - INFO -     normal_anderson: p=0.9500, подходит=False
+2025-05-25 00:54:41,801 - apple_detector - INFO -   Рекомендуемое распределение: normal_dagostino (p=0.2980)
+2025-05-25 00:54:41,801 - apple_detector - INFO - F1_iou0.5_conf0.5:
+2025-05-25 00:54:41,802 - apple_detector - INFO -   Коэффициент вариации: 0.0105
+2025-05-25 00:54:41,802 - apple_detector - INFO -   Стабильность: высокая
+2025-05-25 00:54:41,802 - apple_detector - INFO -   Среднее: 0.7185
+2025-05-25 00:54:41,802 - apple_detector - INFO -   Медиана: 0.7185
+2025-05-25 00:54:41,803 - apple_detector - INFO -   Стд. откл.: 0.0076
+2025-05-25 00:54:41,803 - apple_detector - INFO -   Асимметрия: -0.0579
+2025-05-25 00:54:41,803 - apple_detector - INFO -   Эксцесс: -1.3220
+2025-05-25 00:54:41,841 - apple_detector - INFO -   Тесты распределений:
+2025-05-25 00:54:41,842 - apple_detector - INFO -     normal_shapiro: p=0.9343, подходит=True
+2025-05-25 00:54:41,843 - apple_detector - INFO -     normal_dagostino: p=0.7867, подходит=True
+2025-05-25 00:54:41,843 - apple_detector - INFO -     beta: p=0.9325, подходит=True
+2025-05-25 00:54:41,843 - apple_detector - INFO -     uniform: p=0.9160, подходит=True
+2025-05-25 00:54:41,843 - apple_detector - INFO -     lognormal: p=0.9401, подходит=True
+2025-05-25 00:54:41,844 - apple_detector - INFO -     truncated_normal: p=0.9042, подходит=True
+2025-05-25 00:54:41,844 - apple_detector - INFO -     normal_anderson: p=0.9500, подходит=True
+2025-05-25 00:54:41,844 - apple_detector - INFO -   Рекомендуемое распределение: normal_anderson (p=0.9500)
+2025-05-25 00:54:41,844 - apple_detector - INFO - 
 Сохранение результатов...
-2025-05-24 23:45:56,496 - apple_detector - INFO - Logger setup complete. This message should appear in both console and log file.
-2025-05-24 23:45:56,773 - apple_detector - INFO - Загружен датасет: 670 изображений
-2025-05-24 23:45:56,774 - apple_detector - INFO - Устройство: cuda
-2025-05-24 23:45:56,774 - apple_detector - INFO - Количество фолдов: 5
-2025-05-24 23:45:56,774 - apple_detector - INFO - ================================================================================
-2025-05-24 23:45:56,777 - apple_detector - INFO - НАЧАЛО КРОСС-ВАЛИДАЦИИ
-2025-05-24 23:45:56,777 - apple_detector - INFO - ================================================================================
-2025-05-24 23:45:56,778 - apple_detector - INFO - Создание фолдов для кросс-валидации...
-2025-05-24 23:46:05,239 - apple_detector - INFO - Использована стратифицированная кросс-валидация
-2025-05-24 23:46:05,240 - apple_detector - INFO - Размеры фолдов: [134, 134, 134, 134, 134]
-2025-05-24 23:46:05,241 - apple_detector - INFO - Среднее ± стд: 134.0 ± 0.0
-2025-05-24 23:46:05,247 - apple_detector - INFO - 
---- FOLD 1/5 ---
-2025-05-24 23:46:05,247 - apple_detector - INFO - Train samples: 536, Val samples: 134
-2025-05-24 23:46:05,912 - apple_detector - INFO - Оценка fold 1/5...
-2025-05-24 23:46:32,100 - apple_detector - INFO - Результаты Fold 1:
-2025-05-24 23:46:32,100 - apple_detector - INFO -   mAP@0.5: 0.6007
-2025-05-24 23:46:32,102 - apple_detector - INFO -   F1@0.5:  0.7228
-2025-05-24 23:46:32,102 - apple_detector - INFO -   Обнаружено незрелых: 2688/3684 (72.96%)
-2025-05-24 23:46:32,102 - apple_detector - INFO -   Обнаружено зрелых: 7155/7679 (93.18%)
-2025-05-24 23:46:32,102 - apple_detector - INFO - Время выполнения fold 1: 26.85 сек
-2025-05-24 23:46:32,102 - apple_detector - INFO - 
---- FOLD 2/5 ---
-2025-05-24 23:46:32,102 - apple_detector - INFO - Train samples: 536, Val samples: 134
-2025-05-24 23:46:32,653 - apple_detector - INFO - Оценка fold 2/5...
-2025-05-24 23:47:00,477 - apple_detector - INFO - Результаты Fold 2:
-2025-05-24 23:47:00,477 - apple_detector - INFO -   mAP@0.5: 0.5973
-2025-05-24 23:47:00,478 - apple_detector - INFO -   F1@0.5:  0.7118
-2025-05-24 23:47:00,478 - apple_detector - INFO -   Обнаружено незрелых: 2997/4296 (69.76%)
-2025-05-24 23:47:00,479 - apple_detector - INFO -   Обнаружено зрелых: 6802/7221 (94.20%)
-2025-05-24 23:47:00,479 - apple_detector - INFO - Время выполнения fold 2: 28.37 сек
-2025-05-24 23:47:00,479 - apple_detector - INFO - 
---- FOLD 3/5 ---
-2025-05-24 23:47:00,479 - apple_detector - INFO - Train samples: 536, Val samples: 134
-2025-05-24 23:47:01,192 - apple_detector - INFO - Оценка fold 3/5...
-2025-05-24 23:47:27,613 - apple_detector - INFO - Результаты Fold 3:
-2025-05-24 23:47:27,613 - apple_detector - INFO -   mAP@0.5: 0.5994
-2025-05-24 23:47:27,614 - apple_detector - INFO -   F1@0.5:  0.7189
-2025-05-24 23:47:27,614 - apple_detector - INFO -   Обнаружено незрелых: 2856/4087 (69.88%)
-2025-05-24 23:47:27,614 - apple_detector - INFO -   Обнаружено зрелых: 7663/7757 (98.79%)
-2025-05-24 23:47:27,614 - apple_detector - INFO - Время выполнения fold 3: 27.13 сек
-2025-05-24 23:47:27,615 - apple_detector - INFO - 
---- FOLD 4/5 ---
-2025-05-24 23:47:27,615 - apple_detector - INFO - Train samples: 536, Val samples: 134
-2025-05-24 23:47:28,171 - apple_detector - INFO - Оценка fold 4/5...
-2025-05-24 23:47:54,659 - apple_detector - INFO - Результаты Fold 4:
-2025-05-24 23:47:54,659 - apple_detector - INFO -   mAP@0.5: 0.6414
-2025-05-24 23:47:54,659 - apple_detector - INFO -   F1@0.5:  0.7284
-2025-05-24 23:47:54,661 - apple_detector - INFO -   Обнаружено незрелых: 2741/3757 (72.96%)
-2025-05-24 23:47:54,661 - apple_detector - INFO -   Обнаружено зрелых: 7439/7962 (93.43%)
-2025-05-24 23:47:54,661 - apple_detector - INFO - Время выполнения fold 4: 27.04 сек
-2025-05-24 23:47:54,661 - apple_detector - INFO - 
---- FOLD 5/5 ---
-2025-05-24 23:47:54,661 - apple_detector - INFO - Train samples: 536, Val samples: 134
-2025-05-24 23:47:55,238 - apple_detector - INFO - Оценка fold 5/5...
-2025-05-24 23:48:21,667 - apple_detector - INFO - Результаты Fold 5:
-2025-05-24 23:48:21,667 - apple_detector - INFO -   mAP@0.5: 0.5964
-2025-05-24 23:48:21,668 - apple_detector - INFO -   F1@0.5:  0.7105
-2025-05-24 23:48:21,668 - apple_detector - INFO -   Обнаружено незрелых: 2792/3930 (71.04%)
-2025-05-24 23:48:21,668 - apple_detector - INFO -   Обнаружено зрелых: 7272/7703 (94.40%)
-2025-05-24 23:48:21,668 - apple_detector - INFO - Время выполнения fold 5: 27.01 сек
-2025-05-24 23:48:21,668 - apple_detector - INFO - 
+2025-05-25 00:54:41,850 - apple_detector - INFO - Результаты сохранены в cv_results/
+2025-05-25 00:54:41,851 - apple_detector - INFO -   - cv_results.json: полные результаты
+2025-05-25 00:54:41,851 - apple_detector - INFO -   - fold_results.csv: результаты по фолдам
+2025-05-25 00:54:41,851 - apple_detector - INFO -   - metrics_summary.csv: сводка метрик
+2025-05-25 00:54:41,851 - apple_detector - INFO - Создание расширенных визуализаций...
+2025-05-25 00:54:42,440 - apple_detector - INFO - Сохранен график: cv_results\01_metrics_distribution.png
+2025-05-25 00:54:43,749 - apple_detector - INFO - Сохранен график: cv_results\02_distribution_analysis.png
+2025-05-25 00:54:43,787 - apple_detector - INFO - Создание простых визуализаций...
+2025-05-25 00:54:44,197 - apple_detector - INFO - Сохранен график: cv_results\metrics_distribution.png
+2025-05-25 00:54:44,217 - apple_detector - INFO - 
+Время выполнения кросс-валидации: 207.77 сек
+2025-05-25 00:54:44,218 - apple_detector - INFO - ================================================================================
+2025-05-25 00:54:44,218 - apple_detector - INFO - КРОСС-ВАЛИДАЦИЯ ЗАВЕРШЕНА
+2025-05-25 00:54:44,219 - apple_detector - INFO - ================================================================================
+2025-05-25 00:55:27,938 - apple_detector - INFO - Logger setup complete. This message should appear in both console and log file.
+2025-05-25 00:55:27,939 - apple_detector - INFO - Инициализация в режиме анализа существующих результатов
+2025-05-25 00:55:27,940 - apple_detector - INFO - Устройство: cuda
+2025-05-25 00:55:27,940 - apple_detector - INFO - Количество фолдов: 5
+2025-05-25 00:55:27,940 - apple_detector - INFO - ================================================================================
+2025-05-25 00:55:27,943 - apple_detector - INFO - АНАЛИЗ СУЩЕСТВУЮЩИХ РЕЗУЛЬТАТОВ КРОСС-ВАЛИДАЦИИ
+2025-05-25 00:55:27,944 - apple_detector - INFO - ================================================================================
+2025-05-25 00:55:27,945 - apple_detector - INFO - Успешно загружены результаты из cv_results\cv_results.json
+2025-05-25 00:55:27,946 - apple_detector - INFO - Количество фолдов: 12
+2025-05-25 00:55:27,946 - apple_detector - INFO - 
 ==================================================
-2025-05-24 23:48:21,669 - apple_detector - INFO - АГРЕГИРОВАННЫЕ РЕЗУЛЬТАТЫ
-2025-05-24 23:48:21,669 - apple_detector - INFO - ==================================================
-2025-05-24 23:48:21,670 - apple_detector - INFO - 
-Основные метрики (среднее ± стандартное отклонение):
-2025-05-24 23:48:21,670 - apple_detector - INFO -   mAP_iou0.5_conf0.5       : 0.6070 ± 0.0173 [0.5964, 0.6414]
-2025-05-24 23:48:21,670 - apple_detector - INFO -   F1_iou0.5_conf0.5        : 0.7185 ± 0.0067 [0.7105, 0.7284]
-2025-05-24 23:48:21,670 - apple_detector - INFO -   detection_rate_unripe    : 0.7132 ± 0.0141 [0.6976, 0.7296]
-2025-05-24 23:48:21,670 - apple_detector - INFO -   detection_rate_ripe      : 0.9480 ± 0.0205 [0.9318, 0.9879]
-2025-05-24 23:48:21,670 - apple_detector - INFO - 
-95% доверительные интервалы:
-2025-05-24 23:48:21,671 - apple_detector - INFO -   mAP_iou0.5_conf0.5       : [0.5965, 0.6374]
-2025-05-24 23:48:21,671 - apple_detector - INFO -   F1_iou0.5_conf0.5        : [0.7106, 0.7279]
-2025-05-24 23:48:21,672 - apple_detector - INFO - 
-==================================================
-2025-05-24 23:48:21,673 - apple_detector - INFO - СТАТИСТИЧЕСКИЙ АНАЛИЗ
-2025-05-24 23:48:21,673 - apple_detector - INFO - ==================================================
-2025-05-24 23:48:21,674 - apple_detector - INFO - mAP_iou0.5_conf0.5:
-2025-05-24 23:48:21,675 - apple_detector - INFO -   Коэффициент вариации: 0.0284
-2025-05-24 23:48:21,675 - apple_detector - INFO -   Стабильность: высокая
-2025-05-24 23:48:21,675 - apple_detector - INFO - F1_iou0.5_conf0.5:
-2025-05-24 23:48:21,675 - apple_detector - INFO -   Коэффициент вариации: 0.0094
-2025-05-24 23:48:21,675 - apple_detector - INFO -   Стабильность: высокая
-2025-05-24 23:48:21,676 - apple_detector - INFO - 
-Анализ распределения:
-2025-05-24 23:48:21,676 - apple_detector - INFO -   mAP_iou0.5_conf0.5: Шапиро-Уилк - не нормальное (p=0.0018)
-2025-05-24 23:48:21,677 - apple_detector - INFO -   F1_iou0.5_conf0.5: Шапиро-Уилк - нормальное (p=0.6514)
-2025-05-24 23:48:21,677 - apple_detector - INFO - 
-Сохранение результатов...
-2025-05-24 23:48:21,683 - apple_detector - INFO - Результаты сохранены в cv_results/
-2025-05-24 23:48:21,683 - apple_detector - INFO -   - cv_results.json: полные результаты
-2025-05-24 23:48:21,684 - apple_detector - INFO -   - fold_results.csv: результаты по фолдам
-2025-05-24 23:48:21,684 - apple_detector - INFO -   - metrics_summary.csv: сводка метрик
-2025-05-24 23:48:21,685 - apple_detector - INFO - 
-Создание визуализаций...
-2025-05-24 23:48:22,726 - apple_detector - INFO - Сохранен график: cv_results\01_metrics_distribution.png
-2025-05-24 23:48:23,134 - apple_detector - INFO - Сохранен график: cv_results\02_metrics_boxplots.png
-2025-05-24 23:48:23,580 - apple_detector - INFO - Сохранен график: cv_results\03_map_vs_iou_thresholds.png
-2025-05-24 23:48:24,011 - apple_detector - INFO - Сохранен график: cv_results\04_f1_vs_confidence_thresholds.png
-2025-05-24 23:48:24,620 - apple_detector - INFO - Сохранен график: cv_results\05_detection_counts.png
-2025-05-24 23:48:25,174 - apple_detector - INFO - Сохранен график: cv_results\06_stability_analysis.png
-2025-05-24 23:48:25,692 - apple_detector - INFO - Сохранен график: cv_results\07_method_comparison.png
-2025-05-24 23:48:26,418 - apple_detector - INFO - Сохранен график: cv_results\08_correlation_analysis.png
-2025-05-24 23:48:27,520 - apple_detector - INFO - Сохранен график: cv_results\09_performance_overview.png
-2025-05-24 23:48:28,119 - apple_detector - INFO - Сохранен график: cv_results\10_timing_analysis.png
-2025-05-24 23:48:28,648 - apple_detector - INFO - Сохранен график: cv_results\11_normality_tests.png
-2025-05-24 23:48:28,672 - apple_detector - INFO - Все графики сохранены в cv_results/
-2025-05-24 23:48:28,673 - apple_detector - INFO - 
-Время выполнения кросс-валидации: 151.90 сек
-2025-05-24 23:48:28,680 - apple_detector - INFO - ================================================================================
-2025-05-24 23:48:28,680 - apple_detector - INFO - КРОСС-ВАЛИДАЦИЯ ЗАВЕРШЕНА
-2025-05-24 23:48:28,682 - apple_detector - INFO - ================================================================================
-2025-05-24 23:57:51,711 - apple_detector - INFO - Logger setup complete. This message should appear in both console and log file.
-2025-05-24 23:57:51,711 - apple_detector - INFO - Инициализация в режиме анализа существующих результатов
-2025-05-24 23:57:51,714 - apple_detector - INFO - Устройство: cuda
-2025-05-24 23:57:51,715 - apple_detector - INFO - Количество фолдов: 5
-2025-05-24 23:57:51,716 - apple_detector - INFO - ================================================================================
-2025-05-24 23:57:51,716 - apple_detector - INFO - АНАЛИЗ СУЩЕСТВУЮЩИХ РЕЗУЛЬТАТОВ КРОСС-ВАЛИДАЦИИ
-2025-05-24 23:57:51,717 - apple_detector - INFO - ================================================================================
-2025-05-24 23:57:51,718 - apple_detector - INFO - Успешно загружены результаты из .\cv_results\cv_results.json
-2025-05-24 23:57:51,718 - apple_detector - INFO - Количество фолдов: 5
-2025-05-24 23:57:51,718 - apple_detector - INFO - Обновляем output_dir с cv_results на .\cv_results\
-2025-05-24 23:57:51,720 - apple_detector - INFO - 
-==================================================
-2025-05-24 23:57:51,720 - apple_detector - INFO - СВОДКА РЕЗУЛЬТАТОВ
-2025-05-24 23:57:51,720 - apple_detector - INFO - ==================================================
-2025-05-24 23:57:51,720 - apple_detector - INFO - Количество фолдов: 5
-2025-05-24 23:57:51,720 - apple_detector - INFO - Устройство: cuda
-2025-05-24 23:57:51,720 - apple_detector - INFO - Дата проведения: 2025-05-24T23:45:56.496641
-2025-05-24 23:57:51,721 - apple_detector - INFO - Seed: 42
-2025-05-24 23:57:51,721 - apple_detector - INFO - 
+2025-05-25 00:55:27,947 - apple_detector - INFO - СВОДКА РЕЗУЛЬТАТОВ
+2025-05-25 00:55:27,947 - apple_detector - INFO - ==================================================
+2025-05-25 00:55:27,947 - apple_detector - INFO - Количество фолдов: 12
+2025-05-25 00:55:27,947 - apple_detector - INFO - Устройство: cuda
+2025-05-25 00:55:27,948 - apple_detector - INFO - Дата проведения: 2025-05-25T00:51:16.166995
+2025-05-25 00:55:27,948 - apple_detector - INFO - Seed: 42
+2025-05-25 00:55:27,949 - apple_detector - INFO - 
 Основные метрики:
-2025-05-24 23:57:51,721 - apple_detector - INFO -   mAP_iou0.5_conf0.5       : 0.6070 ± 0.0173 [0.5964, 0.6414]
-2025-05-24 23:57:51,721 - apple_detector - INFO -   F1_iou0.5_conf0.5        : 0.7185 ± 0.0067 [0.7105, 0.7284]
-2025-05-24 23:57:51,721 - apple_detector - INFO -   detection_rate_unripe    : 0.7132 ± 0.0141 [0.6976, 0.7296]
-2025-05-24 23:57:51,721 - apple_detector - INFO -   detection_rate_ripe      : 0.9480 ± 0.0205 [0.9318, 0.9879]
-2025-05-24 23:57:51,722 - apple_detector - INFO - 
+2025-05-25 00:55:27,949 - apple_detector - INFO -   mAP_iou0.5_conf0.5       : 0.6033 ± 0.0196 [0.5627, 0.6416]
+2025-05-25 00:55:27,949 - apple_detector - INFO -   F1_iou0.5_conf0.5        : 0.7185 ± 0.0076 [0.7048, 0.7307]
+2025-05-25 00:55:27,949 - apple_detector - INFO -   detection_rate_unripe    : 0.7144 ± 0.0348 [0.6706, 0.7968]
+2025-05-25 00:55:27,950 - apple_detector - INFO -   detection_rate_ripe      : 0.9487 ± 0.0268 [0.9072, 0.9936]
+2025-05-25 00:55:27,950 - apple_detector - INFO - 
 Статистический анализ:
-2025-05-24 23:57:51,722 - apple_detector - INFO -   mAP_iou0.5_conf0.5: CV=0.0284, стабильность=высокая
-2025-05-24 23:57:51,722 - apple_detector - INFO -     Шапиро-Уилк: p=0.0018, нормальное=нет
-2025-05-24 23:57:51,722 - apple_detector - INFO -   F1_iou0.5_conf0.5: CV=0.0094, стабильность=высокая
-2025-05-24 23:57:51,722 - apple_detector - INFO -     Шапиро-Уилк: p=0.6514, нормальное=да
-2025-05-24 23:57:51,722 - apple_detector - INFO - ==================================================
-2025-05-24 23:59:24,362 - apple_detector - INFO - Logger setup complete. This message should appear in both console and log file.
-2025-05-24 23:59:24,362 - apple_detector - INFO - Инициализация в режиме анализа существующих результатов
-2025-05-24 23:59:24,363 - apple_detector - INFO - Устройство: cuda
-2025-05-24 23:59:24,364 - apple_detector - INFO - Количество фолдов: 5
-2025-05-24 23:59:24,364 - apple_detector - INFO - ================================================================================
-2025-05-24 23:59:24,365 - apple_detector - INFO - АНАЛИЗ СУЩЕСТВУЮЩИХ РЕЗУЛЬТАТОВ КРОСС-ВАЛИДАЦИИ
-2025-05-24 23:59:24,365 - apple_detector - INFO - ================================================================================
-2025-05-24 23:59:24,366 - apple_detector - INFO - Успешно загружены результаты из .\cv_results\cv_results.json
-2025-05-24 23:59:24,366 - apple_detector - INFO - Количество фолдов: 5
-2025-05-24 23:59:24,366 - apple_detector - INFO - Обновляем output_dir с cv_results на .\cv_results\
-2025-05-24 23:59:24,366 - apple_detector - INFO - 
-==================================================
-2025-05-24 23:59:24,367 - apple_detector - INFO - СВОДКА РЕЗУЛЬТАТОВ
-2025-05-24 23:59:24,367 - apple_detector - INFO - ==================================================
-2025-05-24 23:59:24,367 - apple_detector - INFO - Количество фолдов: 5
-2025-05-24 23:59:24,367 - apple_detector - INFO - Устройство: cuda
-2025-05-24 23:59:24,367 - apple_detector - INFO - Дата проведения: 2025-05-24T23:45:56.496641
-2025-05-24 23:59:24,367 - apple_detector - INFO - Seed: 42
-2025-05-24 23:59:24,367 - apple_detector - INFO - 
-Основные метрики:
-2025-05-24 23:59:24,368 - apple_detector - INFO -   mAP_iou0.5_conf0.5       : 0.6070 ± 0.0173 [0.5964, 0.6414]
-2025-05-24 23:59:24,368 - apple_detector - INFO -   F1_iou0.5_conf0.5        : 0.7185 ± 0.0067 [0.7105, 0.7284]
-2025-05-24 23:59:24,368 - apple_detector - INFO -   detection_rate_unripe    : 0.7132 ± 0.0141 [0.6976, 0.7296]
-2025-05-24 23:59:24,368 - apple_detector - INFO -   detection_rate_ripe      : 0.9480 ± 0.0205 [0.9318, 0.9879]
-2025-05-24 23:59:24,368 - apple_detector - INFO - 
-Статистический анализ:
-2025-05-24 23:59:24,368 - apple_detector - INFO -   mAP_iou0.5_conf0.5: CV=0.0284, стабильность=высокая
-2025-05-24 23:59:24,369 - apple_detector - INFO -     Шапиро-Уилк: p=0.0018, нормальное=нет
-2025-05-24 23:59:24,369 - apple_detector - INFO -   F1_iou0.5_conf0.5: CV=0.0094, стабильность=высокая
-2025-05-24 23:59:24,369 - apple_detector - INFO -     Шапиро-Уилк: p=0.6514, нормальное=да
-2025-05-24 23:59:24,369 - apple_detector - INFO - ==================================================
-2025-05-25 00:20:45,797 - apple_detector - INFO - Logger setup complete. This message should appear in both console and log file.
-2025-05-25 00:20:45,797 - apple_detector - INFO - Инициализация в режиме анализа существующих результатов
-2025-05-25 00:20:45,798 - apple_detector - INFO - Устройство: cuda
-2025-05-25 00:20:45,798 - apple_detector - INFO - Количество фолдов: 5
-2025-05-25 00:20:45,798 - apple_detector - INFO - ================================================================================
-2025-05-25 00:20:45,798 - apple_detector - INFO - АНАЛИЗ СУЩЕСТВУЮЩИХ РЕЗУЛЬТАТОВ КРОСС-ВАЛИДАЦИИ
-2025-05-25 00:20:45,799 - apple_detector - INFO - ================================================================================
-2025-05-25 00:20:45,799 - apple_detector - INFO - Успешно загружены результаты из .\cv_results\cv_results.json
-2025-05-25 00:20:45,799 - apple_detector - INFO - Количество фолдов: 5
-2025-05-25 00:20:45,799 - apple_detector - INFO - Обновляем output_dir с cv_results на .\cv_results\
-2025-05-25 00:20:45,801 - apple_detector - INFO - 
-==================================================
-2025-05-25 00:20:45,801 - apple_detector - INFO - СВОДКА РЕЗУЛЬТАТОВ
-2025-05-25 00:20:45,802 - apple_detector - INFO - ==================================================
-2025-05-25 00:20:45,802 - apple_detector - INFO - Количество фолдов: 5
-2025-05-25 00:20:45,803 - apple_detector - INFO - Устройство: cuda
-2025-05-25 00:20:45,803 - apple_detector - INFO - Дата проведения: 2025-05-24T23:45:56.496641
-2025-05-25 00:20:45,803 - apple_detector - INFO - Seed: 42
-2025-05-25 00:20:45,803 - apple_detector - INFO - 
-Основные метрики:
-2025-05-25 00:20:45,803 - apple_detector - INFO -   mAP_iou0.5_conf0.5       : 0.6070 ± 0.0173 [0.5964, 0.6414]
-2025-05-25 00:20:45,803 - apple_detector - INFO -   F1_iou0.5_conf0.5        : 0.7185 ± 0.0067 [0.7105, 0.7284]
-2025-05-25 00:20:45,804 - apple_detector - INFO -   detection_rate_unripe    : 0.7132 ± 0.0141 [0.6976, 0.7296]
-2025-05-25 00:20:45,804 - apple_detector - INFO -   detection_rate_ripe      : 0.9480 ± 0.0205 [0.9318, 0.9879]
-2025-05-25 00:20:45,805 - apple_detector - INFO - 
-Статистический анализ:
-2025-05-25 00:20:45,805 - apple_detector - INFO -   mAP_iou0.5_conf0.5: CV=0.0284, стабильность=высокая
-2025-05-25 00:20:45,805 - apple_detector - INFO -     Шапиро-Уилк: p=0.0018, нормальное=нет
-2025-05-25 00:20:45,805 - apple_detector - INFO -   F1_iou0.5_conf0.5: CV=0.0094, стабильность=высокая
-2025-05-25 00:20:45,805 - apple_detector - INFO -     Шапиро-Уилк: p=0.6514, нормальное=да
-2025-05-25 00:20:45,813 - apple_detector - INFO - ==================================================
-2025-05-25 00:21:26,197 - apple_detector - INFO - Logger setup complete. This message should appear in both console and log file.
-2025-05-25 00:21:26,198 - apple_detector - INFO - Инициализация в режиме анализа существующих результатов
-2025-05-25 00:21:26,198 - apple_detector - INFO - Устройство: cuda
-2025-05-25 00:21:26,199 - apple_detector - INFO - Количество фолдов: 5
-2025-05-25 00:21:26,199 - apple_detector - INFO - ================================================================================
-2025-05-25 00:21:26,200 - apple_detector - INFO - АНАЛИЗ СУЩЕСТВУЮЩИХ РЕЗУЛЬТАТОВ КРОСС-ВАЛИДАЦИИ
-2025-05-25 00:21:26,200 - apple_detector - INFO - ================================================================================
-2025-05-25 00:21:26,200 - apple_detector - INFO - Успешно загружены результаты из .\cv_results\cv_results.json
-2025-05-25 00:21:26,201 - apple_detector - INFO - Количество фолдов: 5
-2025-05-25 00:21:26,201 - apple_detector - INFO - Обновляем output_dir с cv_results на .\cv_results\
-2025-05-25 00:21:26,201 - apple_detector - INFO - 
-==================================================
-2025-05-25 00:21:26,202 - apple_detector - INFO - СВОДКА РЕЗУЛЬТАТОВ
-2025-05-25 00:21:26,202 - apple_detector - INFO - ==================================================
-2025-05-25 00:21:26,202 - apple_detector - INFO - Количество фолдов: 5
-2025-05-25 00:21:26,202 - apple_detector - INFO - Устройство: cuda
-2025-05-25 00:21:26,202 - apple_detector - INFO - Дата проведения: 2025-05-24T23:45:56.496641
-2025-05-25 00:21:26,203 - apple_detector - INFO - Seed: 42
-2025-05-25 00:21:26,203 - apple_detector - INFO - 
-Основные метрики:
-2025-05-25 00:21:26,203 - apple_detector - INFO -   mAP_iou0.5_conf0.5       : 0.6070 ± 0.0173 [0.5964, 0.6414]
-2025-05-25 00:21:26,203 - apple_detector - INFO -   F1_iou0.5_conf0.5        : 0.7185 ± 0.0067 [0.7105, 0.7284]
-2025-05-25 00:21:26,204 - apple_detector - INFO -   detection_rate_unripe    : 0.7132 ± 0.0141 [0.6976, 0.7296]
-2025-05-25 00:21:26,204 - apple_detector - INFO -   detection_rate_ripe      : 0.9480 ± 0.0205 [0.9318, 0.9879]
-2025-05-25 00:21:26,205 - apple_detector - INFO - 
-Статистический анализ:
-2025-05-25 00:21:26,205 - apple_detector - INFO -   mAP_iou0.5_conf0.5: CV=0.0284, стабильность=высокая
-2025-05-25 00:21:26,205 - apple_detector - INFO -     Шапиро-Уилк: p=0.0018, нормальное=нет
-2025-05-25 00:21:26,205 - apple_detector - INFO -   F1_iou0.5_conf0.5: CV=0.0094, стабильность=высокая
-2025-05-25 00:21:26,213 - apple_detector - INFO -     Шапиро-Уилк: p=0.6514, нормальное=да
-2025-05-25 00:21:26,216 - apple_detector - INFO - ==================================================
-2025-05-25 00:22:10,985 - apple_detector - INFO - Logger setup complete. This message should appear in both console and log file.
-2025-05-25 00:22:10,986 - apple_detector - INFO - Инициализация в режиме анализа существующих результатов
-2025-05-25 00:22:10,986 - apple_detector - INFO - Устройство: cuda
-2025-05-25 00:22:10,987 - apple_detector - INFO - Количество фолдов: 5
-2025-05-25 00:22:10,987 - apple_detector - INFO - ================================================================================
-2025-05-25 00:22:10,988 - apple_detector - INFO - АНАЛИЗ СУЩЕСТВУЮЩИХ РЕЗУЛЬТАТОВ КРОСС-ВАЛИДАЦИИ
-2025-05-25 00:22:10,988 - apple_detector - INFO - ================================================================================
-2025-05-25 00:22:10,989 - apple_detector - INFO - Успешно загружены результаты из .\cv_results\cv_results.json
-2025-05-25 00:22:10,989 - apple_detector - INFO - Количество фолдов: 5
-2025-05-25 00:22:10,989 - apple_detector - INFO - Обновляем output_dir с cv_results на .\cv_results\
-2025-05-25 00:22:10,989 - apple_detector - INFO - 
-==================================================
-2025-05-25 00:22:10,990 - apple_detector - INFO - СВОДКА РЕЗУЛЬТАТОВ
-2025-05-25 00:22:10,990 - apple_detector - INFO - ==================================================
-2025-05-25 00:22:10,990 - apple_detector - INFO - Количество фолдов: 5
-2025-05-25 00:22:10,990 - apple_detector - INFO - Устройство: cuda
-2025-05-25 00:22:10,990 - apple_detector - INFO - Дата проведения: 2025-05-24T23:45:56.496641
-2025-05-25 00:22:10,990 - apple_detector - INFO - Seed: 42
-2025-05-25 00:22:10,991 - apple_detector - INFO - 
-Основные метрики:
-2025-05-25 00:22:10,991 - apple_detector - INFO -   mAP_iou0.5_conf0.5       : 0.6070 ± 0.0173 [0.5964, 0.6414]
-2025-05-25 00:22:10,991 - apple_detector - INFO -   F1_iou0.5_conf0.5        : 0.7185 ± 0.0067 [0.7105, 0.7284]
-2025-05-25 00:22:10,991 - apple_detector - INFO -   detection_rate_unripe    : 0.7132 ± 0.0141 [0.6976, 0.7296]
-2025-05-25 00:22:10,991 - apple_detector - INFO -   detection_rate_ripe      : 0.9480 ± 0.0205 [0.9318, 0.9879]
-2025-05-25 00:22:10,991 - apple_detector - INFO - 
-Статистический анализ:
-2025-05-25 00:22:10,992 - apple_detector - INFO -   mAP_iou0.5_conf0.5: CV=0.0284, стабильность=высокая
-2025-05-25 00:22:10,992 - apple_detector - INFO -     Шапиро-Уилк: p=0.0018, нормальное=нет
-2025-05-25 00:22:10,992 - apple_detector - INFO -   F1_iou0.5_conf0.5: CV=0.0094, стабильность=высокая
-2025-05-25 00:22:10,992 - apple_detector - INFO -     Шапиро-Уилк: p=0.6514, нормальное=да
-2025-05-25 00:22:10,993 - apple_detector - INFO - ==================================================
-2025-05-25 00:22:46,122 - apple_detector - INFO - Logger setup complete. This message should appear in both console and log file.
-2025-05-25 00:22:46,122 - apple_detector - INFO - Инициализация в режиме анализа существующих результатов
-2025-05-25 00:22:46,123 - apple_detector - INFO - Устройство: cuda
-2025-05-25 00:22:46,123 - apple_detector - INFO - Количество фолдов: 5
-2025-05-25 00:22:46,124 - apple_detector - INFO - ================================================================================
-2025-05-25 00:22:46,124 - apple_detector - INFO - АНАЛИЗ СУЩЕСТВУЮЩИХ РЕЗУЛЬТАТОВ КРОСС-ВАЛИДАЦИИ
-2025-05-25 00:22:46,124 - apple_detector - INFO - ================================================================================
-2025-05-25 00:22:46,125 - apple_detector - INFO - Успешно загружены результаты из .\cv_results\cv_results.json
-2025-05-25 00:22:46,125 - apple_detector - INFO - Количество фолдов: 5
-2025-05-25 00:22:46,125 - apple_detector - INFO - Обновляем output_dir с cv_results на .\cv_results\
-2025-05-25 00:22:46,125 - apple_detector - INFO - 
-==================================================
-2025-05-25 00:22:46,126 - apple_detector - INFO - СВОДКА РЕЗУЛЬТАТОВ
-2025-05-25 00:22:46,126 - apple_detector - INFO - ==================================================
-2025-05-25 00:22:46,126 - apple_detector - INFO - Количество фолдов: 5
-2025-05-25 00:22:46,126 - apple_detector - INFO - Устройство: cuda
-2025-05-25 00:22:46,126 - apple_detector - INFO - Дата проведения: 2025-05-24T23:45:56.496641
-2025-05-25 00:22:46,126 - apple_detector - INFO - Seed: 42
-2025-05-25 00:22:46,127 - apple_detector - INFO - 
-Основные метрики:
-2025-05-25 00:22:46,127 - apple_detector - INFO -   mAP_iou0.5_conf0.5       : 0.6070 ± 0.0173 [0.5964, 0.6414]
-2025-05-25 00:22:46,127 - apple_detector - INFO -   F1_iou0.5_conf0.5        : 0.7185 ± 0.0067 [0.7105, 0.7284]
-2025-05-25 00:22:46,127 - apple_detector - INFO -   detection_rate_unripe    : 0.7132 ± 0.0141 [0.6976, 0.7296]
-2025-05-25 00:22:46,127 - apple_detector - INFO -   detection_rate_ripe      : 0.9480 ± 0.0205 [0.9318, 0.9879]
-2025-05-25 00:22:46,127 - apple_detector - INFO - 
-Статистический анализ:
-2025-05-25 00:22:46,127 - apple_detector - INFO -   mAP_iou0.5_conf0.5: CV=0.0284, стабильность=высокая
-2025-05-25 00:22:46,128 - apple_detector - INFO -     Шапиро-Уилк: p=0.0018, нормальное=нет
-2025-05-25 00:22:46,128 - apple_detector - INFO -   F1_iou0.5_conf0.5: CV=0.0094, стабильность=высокая
-2025-05-25 00:22:46,128 - apple_detector - INFO -     Шапиро-Уилк: p=0.6514, нормальное=да
-2025-05-25 00:22:46,128 - apple_detector - INFO - ==================================================
-2025-05-25 00:24:26,176 - apple_detector - INFO - Logger setup complete. This message should appear in both console and log file.
-2025-05-25 00:24:26,177 - apple_detector - INFO - Инициализация в режиме анализа существующих результатов
-2025-05-25 00:24:26,177 - apple_detector - INFO - Устройство: cuda
-2025-05-25 00:24:26,178 - apple_detector - INFO - Количество фолдов: 5
-2025-05-25 00:24:26,178 - apple_detector - INFO - ================================================================================
-2025-05-25 00:24:26,179 - apple_detector - INFO - АНАЛИЗ СУЩЕСТВУЮЩИХ РЕЗУЛЬТАТОВ КРОСС-ВАЛИДАЦИИ
-2025-05-25 00:24:26,179 - apple_detector - INFO - ================================================================================
-2025-05-25 00:24:26,180 - apple_detector - INFO - Успешно загружены результаты из .\cv_results\cv_results.json
-2025-05-25 00:24:26,180 - apple_detector - INFO - Количество фолдов: 5
-2025-05-25 00:24:26,180 - apple_detector - INFO - Обновляем output_dir с cv_results на .\cv_results\
-2025-05-25 00:24:26,180 - apple_detector - INFO - 
-==================================================
-2025-05-25 00:24:26,183 - apple_detector - INFO - СВОДКА РЕЗУЛЬТАТОВ
-2025-05-25 00:24:26,183 - apple_detector - INFO - ==================================================
-2025-05-25 00:24:26,183 - apple_detector - INFO - Количество фолдов: 5
-2025-05-25 00:24:26,183 - apple_detector - INFO - Устройство: cuda
-2025-05-25 00:24:26,184 - apple_detector - INFO - Дата проведения: 2025-05-24T23:45:56.496641
-2025-05-25 00:24:26,184 - apple_detector - INFO - Seed: 42
-2025-05-25 00:24:26,184 - apple_detector - INFO - 
-Основные метрики:
-2025-05-25 00:24:26,186 - apple_detector - INFO -   mAP_iou0.5_conf0.5       : 0.6070 ± 0.0173 [0.5964, 0.6414]
-2025-05-25 00:24:26,186 - apple_detector - INFO -   F1_iou0.5_conf0.5        : 0.7185 ± 0.0067 [0.7105, 0.7284]
-2025-05-25 00:24:26,188 - apple_detector - INFO -   detection_rate_unripe    : 0.7132 ± 0.0141 [0.6976, 0.7296]
-2025-05-25 00:24:26,188 - apple_detector - INFO -   detection_rate_ripe      : 0.9480 ± 0.0205 [0.9318, 0.9879]
-2025-05-25 00:24:26,188 - apple_detector - INFO - 
-Статистический анализ:
-2025-05-25 00:24:26,188 - apple_detector - INFO -   mAP_iou0.5_conf0.5: CV=0.0284, стабильность=высокая
-2025-05-25 00:24:26,188 - apple_detector - INFO -     Шапиро-Уилк: p=0.0018, нормальное=нет
-2025-05-25 00:24:26,189 - apple_detector - INFO -   F1_iou0.5_conf0.5: CV=0.0094, стабильность=высокая
-2025-05-25 00:24:26,189 - apple_detector - INFO -     Шапиро-Уилк: p=0.6514, нормальное=да
-2025-05-25 00:24:26,189 - apple_detector - INFO - ==================================================
-2025-05-25 00:24:49,231 - apple_detector - INFO - Logger setup complete. This message should appear in both console and log file.
-2025-05-25 00:24:49,231 - apple_detector - INFO - Инициализация в режиме анализа существующих результатов
-2025-05-25 00:24:49,232 - apple_detector - INFO - Устройство: cuda
-2025-05-25 00:24:49,232 - apple_detector - INFO - Количество фолдов: 5
-2025-05-25 00:24:49,233 - apple_detector - INFO - ================================================================================
-2025-05-25 00:24:49,233 - apple_detector - INFO - АНАЛИЗ СУЩЕСТВУЮЩИХ РЕЗУЛЬТАТОВ КРОСС-ВАЛИДАЦИИ
-2025-05-25 00:24:49,234 - apple_detector - INFO - ================================================================================
-2025-05-25 00:24:49,235 - apple_detector - INFO - Успешно загружены результаты из .\cv_results\cv_results.json
-2025-05-25 00:24:49,235 - apple_detector - INFO - Количество фолдов: 5
-2025-05-25 00:24:49,235 - apple_detector - INFO - Обновляем output_dir с cv_results на .\cv_results\
-2025-05-25 00:24:49,236 - apple_detector - INFO - 
-==================================================
-2025-05-25 00:24:49,236 - apple_detector - INFO - СВОДКА РЕЗУЛЬТАТОВ
-2025-05-25 00:24:49,236 - apple_detector - INFO - ==================================================
-2025-05-25 00:24:49,236 - apple_detector - INFO - Количество фолдов: 5
-2025-05-25 00:24:49,237 - apple_detector - INFO - Устройство: cuda
-2025-05-25 00:24:49,237 - apple_detector - INFO - Дата проведения: 2025-05-24T23:45:56.496641
-2025-05-25 00:24:49,238 - apple_detector - INFO - Seed: 42
-2025-05-25 00:24:49,238 - apple_detector - INFO - 
-Основные метрики:
-2025-05-25 00:24:49,238 - apple_detector - INFO -   mAP_iou0.5_conf0.5       : 0.6070 ± 0.0173 [0.5964, 0.6414]
-2025-05-25 00:24:49,238 - apple_detector - INFO -   F1_iou0.5_conf0.5        : 0.7185 ± 0.0067 [0.7105, 0.7284]
-2025-05-25 00:24:49,238 - apple_detector - INFO -   detection_rate_unripe    : 0.7132 ± 0.0141 [0.6976, 0.7296]
-2025-05-25 00:24:49,238 - apple_detector - INFO -   detection_rate_ripe      : 0.9480 ± 0.0205 [0.9318, 0.9879]
-2025-05-25 00:24:49,239 - apple_detector - INFO - 
-Статистический анализ:
-2025-05-25 00:24:49,239 - apple_detector - INFO -   mAP_iou0.5_conf0.5: CV=0.0284, стабильность=высокая
-2025-05-25 00:24:49,239 - apple_detector - INFO -     Шапиро-Уилк: p=0.0018, нормальное=нет
-2025-05-25 00:24:49,239 - apple_detector - INFO -   F1_iou0.5_conf0.5: CV=0.0094, стабильность=высокая
-2025-05-25 00:24:49,239 - apple_detector - INFO -     Шапиро-Уилк: p=0.6514, нормальное=да
-2025-05-25 00:24:49,246 - apple_detector - INFO - ==================================================
-2025-05-25 00:26:24,693 - apple_detector - INFO - Logger setup complete. This message should appear in both console and log file.
-2025-05-25 00:26:24,693 - apple_detector - INFO - Инициализация в режиме анализа существующих результатов
-2025-05-25 00:27:40,400 - apple_detector - INFO - Logger setup complete. This message should appear in both console and log file.
-2025-05-25 00:27:40,400 - apple_detector - INFO - Инициализация в режиме анализа существующих результатов
-2025-05-25 00:27:40,401 - apple_detector - INFO - Устройство: cuda
-2025-05-25 00:27:40,402 - apple_detector - INFO - Количество фолдов: 5
-2025-05-25 00:27:40,402 - apple_detector - INFO - ================================================================================
-2025-05-25 00:27:40,402 - apple_detector - INFO - АНАЛИЗ СУЩЕСТВУЮЩИХ РЕЗУЛЬТАТОВ КРОСС-ВАЛИДАЦИИ
-2025-05-25 00:27:40,403 - apple_detector - INFO - ================================================================================
-2025-05-25 00:27:40,404 - apple_detector - INFO - Успешно загружены результаты из .\cv_results\cv_results.json
-2025-05-25 00:27:40,404 - apple_detector - INFO - Количество фолдов: 5
-2025-05-25 00:27:40,404 - apple_detector - INFO - Обновляем output_dir с cv_results на .\cv_results\
-2025-05-25 00:27:40,405 - apple_detector - INFO - 
-==================================================
-2025-05-25 00:27:40,405 - apple_detector - INFO - СВОДКА РЕЗУЛЬТАТОВ
-2025-05-25 00:27:40,405 - apple_detector - INFO - ==================================================
-2025-05-25 00:27:40,405 - apple_detector - INFO - Количество фолдов: 5
-2025-05-25 00:27:40,410 - apple_detector - INFO - Устройство: cuda
-2025-05-25 00:27:40,411 - apple_detector - INFO - Дата проведения: 2025-05-24T23:45:56.496641
-2025-05-25 00:27:40,412 - apple_detector - INFO - Seed: 42
-2025-05-25 00:27:40,412 - apple_detector - INFO - 
-Основные метрики:
-2025-05-25 00:27:40,414 - apple_detector - INFO -   mAP_iou0.5_conf0.5       : 0.6070 ± 0.0173 [0.5964, 0.6414]
-2025-05-25 00:27:40,414 - apple_detector - INFO -   F1_iou0.5_conf0.5        : 0.7185 ± 0.0067 [0.7105, 0.7284]
-2025-05-25 00:27:40,415 - apple_detector - INFO -   detection_rate_unripe    : 0.7132 ± 0.0141 [0.6976, 0.7296]
-2025-05-25 00:27:40,415 - apple_detector - INFO -   detection_rate_ripe      : 0.9480 ± 0.0205 [0.9318, 0.9879]
-2025-05-25 00:27:40,415 - apple_detector - INFO - 
-Статистический анализ:
-2025-05-25 00:27:40,416 - apple_detector - INFO -   mAP_iou0.5_conf0.5: CV=0.0284, стабильность=высокая
-2025-05-25 00:27:40,416 - apple_detector - INFO -     Шапиро-Уилк: p=0.0018, нормальное=нет
-2025-05-25 00:27:40,416 - apple_detector - INFO -   F1_iou0.5_conf0.5: CV=0.0094, стабильность=высокая
-2025-05-25 00:27:40,416 - apple_detector - INFO -     Шапиро-Уилк: p=0.6514, нормальное=да
-2025-05-25 00:27:40,416 - apple_detector - INFO - ==================================================
-2025-05-25 00:27:40,416 - apple_detector - INFO - Создание простых визуализаций...
-2025-05-25 00:27:40,818 - apple_detector - INFO - Сохранен график: .\cv_results\metrics_distribution.png
-2025-05-25 00:27:40,845 - apple_detector - INFO - ================================================================================
-2025-05-25 00:27:40,845 - apple_detector - INFO - АНАЛИЗ СУЩЕСТВУЮЩИХ РЕЗУЛЬТАТОВ ЗАВЕРШЕН
-2025-05-25 00:27:40,851 - apple_detector - INFO - ================================================================================
-2025-05-25 00:28:45,751 - apple_detector - INFO - Logger setup complete. This message should appear in both console and log file.
-2025-05-25 00:28:45,751 - apple_detector - INFO - Инициализация в режиме анализа существующих результатов
-2025-05-25 00:28:45,752 - apple_detector - INFO - Устройство: cuda
-2025-05-25 00:28:45,753 - apple_detector - INFO - Количество фолдов: 5
-2025-05-25 00:28:45,753 - apple_detector - INFO - ================================================================================
-2025-05-25 00:28:45,753 - apple_detector - INFO - АНАЛИЗ СУЩЕСТВУЮЩИХ РЕЗУЛЬТАТОВ КРОСС-ВАЛИДАЦИИ
-2025-05-25 00:28:45,753 - apple_detector - INFO - ================================================================================
-2025-05-25 00:28:45,753 - apple_detector - INFO - Успешно загружены результаты из cv_results\cv_results.json
-2025-05-25 00:28:45,753 - apple_detector - INFO - Количество фолдов: 5
-2025-05-25 00:28:45,754 - apple_detector - INFO - 
-==================================================
-2025-05-25 00:28:45,754 - apple_detector - INFO - СВОДКА РЕЗУЛЬТАТОВ
-2025-05-25 00:28:45,754 - apple_detector - INFO - ==================================================
-2025-05-25 00:28:45,754 - apple_detector - INFO - Количество фолдов: 5
-2025-05-25 00:28:45,754 - apple_detector - INFO - Устройство: cuda
-2025-05-25 00:28:45,754 - apple_detector - INFO - Дата проведения: 2025-05-24T23:45:56.496641
-2025-05-25 00:28:45,754 - apple_detector - INFO - Seed: 42
-2025-05-25 00:28:45,755 - apple_detector - INFO - 
-Основные метрики:
-2025-05-25 00:28:45,755 - apple_detector - INFO -   mAP_iou0.5_conf0.5       : 0.6070 ± 0.0173 [0.5964, 0.6414]
-2025-05-25 00:28:45,755 - apple_detector - INFO -   F1_iou0.5_conf0.5        : 0.7185 ± 0.0067 [0.7105, 0.7284]
-2025-05-25 00:28:45,755 - apple_detector - INFO -   detection_rate_unripe    : 0.7132 ± 0.0141 [0.6976, 0.7296]
-2025-05-25 00:28:45,755 - apple_detector - INFO -   detection_rate_ripe      : 0.9480 ± 0.0205 [0.9318, 0.9879]
-2025-05-25 00:28:45,755 - apple_detector - INFO - 
-Статистический анализ:
-2025-05-25 00:28:45,756 - apple_detector - INFO -   mAP_iou0.5_conf0.5: CV=0.0284, стабильность=высокая
-2025-05-25 00:28:45,756 - apple_detector - INFO -     Шапиро-Уилк: p=0.0018, нормальное=нет
-2025-05-25 00:28:45,756 - apple_detector - INFO -   F1_iou0.5_conf0.5: CV=0.0094, стабильность=высокая
-2025-05-25 00:28:45,756 - apple_detector - INFO -     Шапиро-Уилк: p=0.6514, нормальное=да
-2025-05-25 00:28:45,756 - apple_detector - INFO - ==================================================
-2025-05-25 00:28:45,756 - apple_detector - INFO - Создание простых визуализаций...
-2025-05-25 00:28:46,151 - apple_detector - INFO - Сохранен график: cv_results\metrics_distribution.png
-2025-05-25 00:28:46,175 - apple_detector - INFO - ================================================================================
-2025-05-25 00:28:46,175 - apple_detector - INFO - АНАЛИЗ СУЩЕСТВУЮЩИХ РЕЗУЛЬТАТОВ ЗАВЕРШЕН
-2025-05-25 00:28:46,176 - apple_detector - INFO - ================================================================================
-2025-05-25 00:31:38,332 - apple_detector - INFO - Logger setup complete. This message should appear in both console and log file.
-2025-05-25 00:31:38,332 - apple_detector - INFO - Инициализация в режиме анализа существующих результатов
-2025-05-25 00:31:38,333 - apple_detector - INFO - Устройство: cuda
-2025-05-25 00:31:38,333 - apple_detector - INFO - Количество фолдов: 5
-2025-05-25 00:31:38,333 - apple_detector - INFO - ================================================================================
-2025-05-25 00:31:38,334 - apple_detector - INFO - АНАЛИЗ СУЩЕСТВУЮЩИХ РЕЗУЛЬТАТОВ КРОСС-ВАЛИДАЦИИ
-2025-05-25 00:31:38,335 - apple_detector - INFO - ================================================================================
-2025-05-25 00:31:38,335 - apple_detector - INFO - Успешно загружены результаты из cv_results\cv_results.json
-2025-05-25 00:31:38,335 - apple_detector - INFO - Количество фолдов: 5
-2025-05-25 00:31:38,335 - apple_detector - INFO - 
-==================================================
-2025-05-25 00:31:38,336 - apple_detector - INFO - СВОДКА РЕЗУЛЬТАТОВ
-2025-05-25 00:31:38,336 - apple_detector - INFO - ==================================================
-2025-05-25 00:31:38,336 - apple_detector - INFO - Количество фолдов: 5
-2025-05-25 00:31:38,337 - apple_detector - INFO - Устройство: cuda
-2025-05-25 00:31:38,337 - apple_detector - INFO - Дата проведения: 2025-05-24T23:45:56.496641
-2025-05-25 00:31:38,337 - apple_detector - INFO - Seed: 42
-2025-05-25 00:31:38,338 - apple_detector - INFO - 
-Основные метрики:
-2025-05-25 00:31:38,339 - apple_detector - INFO -   mAP_iou0.5_conf0.5       : 0.6070 ± 0.0173 [0.5964, 0.6414]
-2025-05-25 00:31:38,347 - apple_detector - INFO -   F1_iou0.5_conf0.5        : 0.7185 ± 0.0067 [0.7105, 0.7284]
-2025-05-25 00:31:38,347 - apple_detector - INFO -   detection_rate_unripe    : 0.7132 ± 0.0141 [0.6976, 0.7296]
-2025-05-25 00:31:38,347 - apple_detector - INFO -   detection_rate_ripe      : 0.9480 ± 0.0205 [0.9318, 0.9879]
-2025-05-25 00:31:38,348 - apple_detector - INFO - 
-Статистический анализ:
-2025-05-25 00:31:38,348 - apple_detector - INFO -   mAP_iou0.5_conf0.5: CV=0.0284, стабильность=высокая
-2025-05-25 00:31:38,348 - apple_detector - INFO -     Шапиро-Уилк: p=0.0018, нормальное=нет
-2025-05-25 00:31:38,349 - apple_detector - INFO -   F1_iou0.5_conf0.5: CV=0.0094, стабильность=высокая
-2025-05-25 00:31:38,349 - apple_detector - INFO -     Шапиро-Уилк: p=0.6514, нормальное=да
-2025-05-25 00:31:38,349 - apple_detector - INFO - ==================================================
-2025-05-25 00:31:38,349 - apple_detector - INFO - Создание расширенных визуализаций...
-2025-05-25 00:31:38,878 - apple_detector - INFO - Сохранен график: cv_results\01_metrics_distribution.png
-2025-05-25 00:31:39,957 - apple_detector - INFO - Сохранен график: cv_results\02_distribution_analysis.png
-2025-05-25 00:31:39,959 - apple_detector - INFO - Создание простых визуализаций...
-2025-05-25 00:31:40,317 - apple_detector - INFO - Сохранен график: cv_results\metrics_distribution.png
-2025-05-25 00:31:40,320 - apple_detector - INFO - ================================================================================
-2025-05-25 00:31:40,320 - apple_detector - INFO - АНАЛИЗ СУЩЕСТВУЮЩИХ РЕЗУЛЬТАТОВ ЗАВЕРШЕН
-2025-05-25 00:31:40,320 - apple_detector - INFO - ================================================================================
-2025-05-25 00:33:06,545 - apple_detector - INFO - Logger setup complete. This message should appear in both console and log file.
-2025-05-25 00:33:06,824 - apple_detector - INFO - Загружен датасет: 670 изображений
-2025-05-25 00:33:06,825 - apple_detector - INFO - Устройство: cuda
-2025-05-25 00:33:06,826 - apple_detector - INFO - Количество фолдов: 5
-2025-05-25 00:34:28,374 - apple_detector - INFO - Logger setup complete. This message should appear in both console and log file.
-2025-05-25 00:34:28,374 - apple_detector - INFO - Инициализация в режиме анализа существующих результатов
-2025-05-25 00:34:28,375 - apple_detector - INFO - Устройство: cuda
-2025-05-25 00:34:28,375 - apple_detector - INFO - Количество фолдов: 5
-2025-05-25 00:34:28,379 - apple_detector - INFO - ================================================================================
-2025-05-25 00:34:28,379 - apple_detector - INFO - АНАЛИЗ СУЩЕСТВУЮЩИХ РЕЗУЛЬТАТОВ КРОСС-ВАЛИДАЦИИ
-2025-05-25 00:34:28,381 - apple_detector - INFO - ================================================================================
-2025-05-25 00:34:28,381 - apple_detector - INFO - Успешно загружены результаты из cv_results\cv_results.json
-2025-05-25 00:34:28,381 - apple_detector - INFO - Количество фолдов: 5
-2025-05-25 00:34:28,381 - apple_detector - INFO - 
-==================================================
-2025-05-25 00:34:28,382 - apple_detector - INFO - СВОДКА РЕЗУЛЬТАТОВ
-2025-05-25 00:34:28,382 - apple_detector - INFO - ==================================================
-2025-05-25 00:34:28,383 - apple_detector - INFO - Количество фолдов: 5
-2025-05-25 00:34:28,383 - apple_detector - INFO - Устройство: cuda
-2025-05-25 00:34:28,383 - apple_detector - INFO - Дата проведения: 2025-05-24T23:45:56.496641
-2025-05-25 00:34:28,383 - apple_detector - INFO - Seed: 42
-2025-05-25 00:34:28,383 - apple_detector - INFO - 
-Основные метрики:
-2025-05-25 00:34:28,383 - apple_detector - INFO -   mAP_iou0.5_conf0.5       : 0.6070 ± 0.0173 [0.5964, 0.6414]
-2025-05-25 00:34:28,383 - apple_detector - INFO -   F1_iou0.5_conf0.5        : 0.7185 ± 0.0067 [0.7105, 0.7284]
-2025-05-25 00:34:28,384 - apple_detector - INFO -   detection_rate_unripe    : 0.7132 ± 0.0141 [0.6976, 0.7296]
-2025-05-25 00:34:28,384 - apple_detector - INFO -   detection_rate_ripe      : 0.9480 ± 0.0205 [0.9318, 0.9879]
-2025-05-25 00:34:28,384 - apple_detector - INFO - 
-Статистический анализ:
-2025-05-25 00:34:28,384 - apple_detector - INFO -   mAP_iou0.5_conf0.5: CV=0.0284, стабильность=высокая
-2025-05-25 00:34:28,384 - apple_detector - INFO -     Шапиро-Уилк: p=0.0018, нормальное=нет
-2025-05-25 00:34:28,384 - apple_detector - INFO -   F1_iou0.5_conf0.5: CV=0.0094, стабильность=высокая
-2025-05-25 00:34:28,384 - apple_detector - INFO -     Шапиро-Уилк: p=0.6514, нормальное=да
-2025-05-25 00:34:28,385 - apple_detector - INFO - ==================================================
-2025-05-25 00:34:28,385 - apple_detector - INFO - Создание расширенных визуализаций...
-2025-05-25 00:34:28,910 - apple_detector - INFO - Сохранен график: cv_results\01_metrics_distribution.png
-2025-05-25 00:34:30,019 - apple_detector - INFO - Сохранен график: cv_results\02_distribution_analysis.png
-2025-05-25 00:34:30,074 - apple_detector - INFO - Создание простых визуализаций...
-2025-05-25 00:34:30,433 - apple_detector - INFO - Сохранен график: cv_results\metrics_distribution.png
-2025-05-25 00:34:30,460 - apple_detector - INFO - ================================================================================
-2025-05-25 00:34:30,461 - apple_detector - INFO - АНАЛИЗ СУЩЕСТВУЮЩИХ РЕЗУЛЬТАТОВ ЗАВЕРШЕН
-2025-05-25 00:34:30,461 - apple_detector - INFO - ================================================================================
-2025-05-25 00:34:42,380 - apple_detector - INFO - Logger setup complete. This message should appear in both console and log file.
-2025-05-25 00:34:42,652 - apple_detector - INFO - Загружен датасет: 670 изображений
-2025-05-25 00:34:42,653 - apple_detector - INFO - Устройство: cuda
-2025-05-25 00:34:42,654 - apple_detector - INFO - Количество фолдов: 5
-2025-05-25 00:34:42,654 - apple_detector - INFO - ================================================================================
-2025-05-25 00:34:42,655 - apple_detector - INFO - НАЧАЛО КРОСС-ВАЛИДАЦИИ
-2025-05-25 00:34:42,655 - apple_detector - INFO - ================================================================================
-2025-05-25 00:34:42,656 - apple_detector - INFO - Создание фолдов для кросс-валидации...
-2025-05-25 00:34:50,976 - apple_detector - INFO - Использована стратифицированная кросс-валидация
-2025-05-25 00:34:50,976 - apple_detector - INFO - Размеры фолдов: [134, 134, 134, 134, 134]
-2025-05-25 00:34:50,977 - apple_detector - INFO - Среднее ± стд: 134.0 ± 0.0
-2025-05-25 00:34:50,981 - apple_detector - INFO - 
---- FOLD 1/5 ---
-2025-05-25 00:34:50,981 - apple_detector - INFO - Train samples: 536, Val samples: 134
-2025-05-25 00:34:51,634 - apple_detector - INFO - Оценка fold 1/5...
-2025-05-25 00:35:17,327 - apple_detector - INFO - Результаты Fold 1:
-2025-05-25 00:35:17,328 - apple_detector - INFO -   mAP@0.5: 0.6007
-2025-05-25 00:35:17,328 - apple_detector - INFO -   F1@0.5:  0.7228
-2025-05-25 00:35:17,329 - apple_detector - INFO -   Обнаружено незрелых: 2688/3684 (72.96%)
-2025-05-25 00:35:17,330 - apple_detector - INFO -   Обнаружено зрелых: 7155/7679 (93.18%)
-2025-05-25 00:35:17,330 - apple_detector - INFO - Время выполнения fold 1: 26.35 сек
-2025-05-25 00:35:17,330 - apple_detector - INFO - 
---- FOLD 2/5 ---
-2025-05-25 00:35:17,331 - apple_detector - INFO - Train samples: 536, Val samples: 134
-2025-05-25 00:35:18,123 - apple_detector - INFO - Оценка fold 2/5...
-2025-05-25 00:35:43,053 - apple_detector - INFO - Результаты Fold 2:
-2025-05-25 00:35:43,053 - apple_detector - INFO -   mAP@0.5: 0.5973
-2025-05-25 00:35:43,054 - apple_detector - INFO -   F1@0.5:  0.7118
-2025-05-25 00:35:43,055 - apple_detector - INFO -   Обнаружено незрелых: 2997/4296 (69.76%)
-2025-05-25 00:35:43,055 - apple_detector - INFO -   Обнаружено зрелых: 6802/7221 (94.20%)
-2025-05-25 00:35:43,055 - apple_detector - INFO - Время выполнения fold 2: 25.72 сек
-2025-05-25 00:35:43,055 - apple_detector - INFO - 
---- FOLD 3/5 ---
-2025-05-25 00:35:43,055 - apple_detector - INFO - Train samples: 536, Val samples: 134
-2025-05-25 00:35:43,816 - apple_detector - INFO - Оценка fold 3/5...
-2025-05-25 00:36:08,224 - apple_detector - INFO - Результаты Fold 3:
-2025-05-25 00:36:08,224 - apple_detector - INFO -   mAP@0.5: 0.5994
-2025-05-25 00:36:08,225 - apple_detector - INFO -   F1@0.5:  0.7189
-2025-05-25 00:36:08,226 - apple_detector - INFO -   Обнаружено незрелых: 2856/4087 (69.88%)
-2025-05-25 00:36:08,226 - apple_detector - INFO -   Обнаружено зрелых: 7663/7757 (98.79%)
-2025-05-25 00:36:08,226 - apple_detector - INFO - Время выполнения fold 3: 25.17 сек
-2025-05-25 00:36:08,226 - apple_detector - INFO - 
---- FOLD 4/5 ---
-2025-05-25 00:36:08,226 - apple_detector - INFO - Train samples: 536, Val samples: 134
-2025-05-25 00:36:08,982 - apple_detector - INFO - Оценка fold 4/5...
-2025-05-25 00:36:33,828 - apple_detector - INFO - Результаты Fold 4:
-2025-05-25 00:36:33,829 - apple_detector - INFO -   mAP@0.5: 0.6414
-2025-05-25 00:36:33,829 - apple_detector - INFO -   F1@0.5:  0.7284
-2025-05-25 00:36:33,832 - apple_detector - INFO -   Обнаружено незрелых: 2741/3757 (72.96%)
-2025-05-25 00:36:33,832 - apple_detector - INFO -   Обнаружено зрелых: 7439/7962 (93.43%)
-2025-05-25 00:36:33,832 - apple_detector - INFO - Время выполнения fold 4: 25.60 сек
-2025-05-25 00:36:33,832 - apple_detector - INFO - 
---- FOLD 5/5 ---
-2025-05-25 00:36:33,833 - apple_detector - INFO - Train samples: 536, Val samples: 134
-2025-05-25 00:36:34,514 - apple_detector - INFO - Оценка fold 5/5...
-2025-05-25 00:37:01,262 - apple_detector - INFO - Результаты Fold 5:
-2025-05-25 00:37:01,263 - apple_detector - INFO -   mAP@0.5: 0.5964
-2025-05-25 00:37:01,263 - apple_detector - INFO -   F1@0.5:  0.7105
-2025-05-25 00:37:01,263 - apple_detector - INFO -   Обнаружено незрелых: 2792/3930 (71.04%)
-2025-05-25 00:37:01,264 - apple_detector - INFO -   Обнаружено зрелых: 7272/7703 (94.40%)
-2025-05-25 00:37:01,264 - apple_detector - INFO - Время выполнения fold 5: 27.43 сек
-2025-05-25 00:37:01,264 - apple_detector - INFO - Выполнение агрегации результатов...
-2025-05-25 00:37:01,265 - apple_detector - INFO - Выполнение расширенного статистического анализа...
-2025-05-25 00:37:01,265 - apple_detector - INFO - mAP_iou0.5_conf0.5:
-2025-05-25 00:37:01,266 - apple_detector - INFO -   Коэффициент вариации: 0.0284
-2025-05-25 00:37:01,266 - apple_detector - INFO -   Стабильность: высокая
-2025-05-25 00:37:01,266 - apple_detector - INFO -   Среднее: 0.6070
-2025-05-25 00:37:01,266 - apple_detector - INFO -   Медиана: 0.5994
-2025-05-25 00:37:01,267 - apple_detector - INFO -   Стд. откл.: 0.0173
-2025-05-25 00:37:01,267 - apple_detector - INFO -   Асимметрия: 1.0527
-2025-05-25 00:37:01,267 - apple_detector - INFO -   Эксцесс: -0.9448
-2025-05-25 00:37:01,307 - apple_detector - INFO -   Тесты распределений:
-2025-05-25 00:37:01,307 - apple_detector - INFO -     normal_shapiro: p=0.0018, подходит=False
-2025-05-25 00:37:01,308 - apple_detector - INFO -     beta: p=0.2069, подходит=True
-2025-05-25 00:37:01,308 - apple_detector - INFO -     uniform: p=0.0052, подходит=False
-2025-05-25 00:37:01,308 - apple_detector - INFO -     lognormal: p=0.2120, подходит=True
-2025-05-25 00:37:01,309 - apple_detector - INFO -     truncated_normal: p=0.0053, подходит=False
-2025-05-25 00:37:01,309 - apple_detector - INFO -     normal_anderson: p=0.9500, подходит=True
-2025-05-25 00:37:01,309 - apple_detector - INFO -   Рекомендуемое распределение: normal_anderson (p=0.9500)
-2025-05-25 00:37:01,310 - apple_detector - INFO - F1_iou0.5_conf0.5:
-2025-05-25 00:37:01,310 - apple_detector - INFO -   Коэффициент вариации: 0.0094
-2025-05-25 00:37:01,310 - apple_detector - INFO -   Стабильность: высокая
-2025-05-25 00:37:01,310 - apple_detector - INFO -   Среднее: 0.7185
-2025-05-25 00:37:01,311 - apple_detector - INFO -   Медиана: 0.7189
-2025-05-25 00:37:01,311 - apple_detector - INFO -   Стд. откл.: 0.0067
-2025-05-25 00:37:01,311 - apple_detector - INFO -   Асимметрия: 0.1222
-2025-05-25 00:37:01,311 - apple_detector - INFO -   Эксцесс: -1.9880
-2025-05-25 00:37:01,351 - apple_detector - INFO -   Тесты распределений:
-2025-05-25 00:37:01,352 - apple_detector - INFO -     normal_shapiro: p=0.6514, подходит=True
-2025-05-25 00:37:01,353 - apple_detector - INFO -     beta: p=0.8729, подходит=True
-2025-05-25 00:37:01,353 - apple_detector - INFO -     uniform: p=0.5454, подходит=True
-2025-05-25 00:37:01,353 - apple_detector - INFO -     lognormal: p=0.8718, подходит=True
-2025-05-25 00:37:01,353 - apple_detector - INFO -     truncated_normal: p=0.5467, подходит=True
-2025-05-25 00:37:01,353 - apple_detector - INFO -     normal_anderson: p=0.9500, подходит=True
-2025-05-25 00:37:01,354 - apple_detector - INFO -   Рекомендуемое распределение: normal_anderson (p=0.9500)
-2025-05-25 00:37:01,354 - apple_detector - INFO - 
-Сохранение результатов...
-2025-05-25 00:37:01,359 - apple_detector - INFO - Результаты сохранены в cv_results/
-2025-05-25 00:37:01,359 - apple_detector - INFO -   - cv_results.json: полные результаты
-2025-05-25 00:37:01,359 - apple_detector - INFO -   - fold_results.csv: результаты по фолдам
-2025-05-25 00:37:01,360 - apple_detector - INFO -   - metrics_summary.csv: сводка метрик
-2025-05-25 00:37:01,360 - apple_detector - INFO - Создание расширенных визуализаций...
-2025-05-25 00:37:01,907 - apple_detector - INFO - Сохранен график: cv_results\01_metrics_distribution.png
-2025-05-25 00:37:02,990 - apple_detector - INFO - Сохранен график: cv_results\02_distribution_analysis.png
-2025-05-25 00:37:03,029 - apple_detector - INFO - Создание простых визуализаций...
-2025-05-25 00:37:03,398 - apple_detector - INFO - Сохранен график: cv_results\metrics_distribution.png
-2025-05-25 00:37:03,418 - apple_detector - INFO - 
-Время выполнения кросс-валидации: 140.76 сек
-2025-05-25 00:37:03,418 - apple_detector - INFO - ================================================================================
-2025-05-25 00:37:03,420 - apple_detector - INFO - КРОСС-ВАЛИДАЦИЯ ЗАВЕРШЕНА
-2025-05-25 00:37:03,420 - apple_detector - INFO - ================================================================================
+2025-05-25 00:55:27,951 - apple_detector - INFO -   mAP_iou0.5_conf0.5: CV=0.0325, стабильность=высокая
+2025-05-25 00:55:27,951 - apple_detector - INFO -     Рекомендуемое распределение: normal_dagostino (p=0.2980)
+2025-05-25 00:55:27,953 - apple_detector - INFO -   F1_iou0.5_conf0.5: CV=0.0105, стабильность=высокая
+2025-05-25 00:55:27,953 - apple_detector - INFO -     Рекомендуемое распределение: normal_anderson (p=0.9500)
+2025-05-25 00:55:27,953 - apple_detector - INFO - ==================================================
+2025-05-25 00:55:27,953 - apple_detector - INFO - Создание расширенных визуализаций...
+2025-05-25 00:55:28,523 - apple_detector - INFO - Сохранен график: cv_results\01_metrics_distribution.png
+2025-05-25 00:55:29,792 - apple_detector - INFO - Сохранен график: cv_results\02_distribution_analysis.png
+2025-05-25 00:55:29,843 - apple_detector - INFO - Создание простых визуализаций...
+2025-05-25 00:55:30,268 - apple_detector - INFO - Сохранен график: cv_results\metrics_distribution.png
+2025-05-25 00:55:30,299 - apple_detector - INFO - ================================================================================
+2025-05-25 00:55:30,300 - apple_detector - INFO - АНАЛИЗ СУЩЕСТВУЮЩИХ РЕЗУЛЬТАТОВ ЗАВЕРШЕН
+2025-05-25 00:55:30,302 - apple_detector - INFO - ================================================================================

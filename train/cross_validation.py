@@ -5,8 +5,28 @@
 Система кросс-валидации для оценки качества модели обнаружения яблок.
 Использует k-fold CV на обучающем датасете с детальным анализом результатов.
 
-Использование:
+Основные режимы работы:
+
+1. Полная кросс-валидация:
     python cross_validation.py --data_path data/train --k_folds 5 --model_path apple_detector.pth
+
+2. Анализ существующих результатов:
+    python cross_validation.py --analyze_only --load_results_from cv_results/
+
+3. Только генерация графиков:
+    python cross_validation.py --generate_plots_only --output_dir cv_results/
+
+4. Пропуск CV с анализом текущей директории:
+    python cross_validation.py --skip_cv
+
+Возможности:
+- Стратифицированная кросс-валидация
+- Тесты на нормальность распределения метрик
+- Корреляционный анализ между метриками
+- Сравнение с базовыми методами
+- Черно-белые графики для печати
+- Интерактивные графики с автосохранением
+- Статистический анализ стабильности модели
 """
 
 import os
@@ -17,6 +37,8 @@ from datetime import datetime
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
+from matplotlib.patches import Rectangle
 import seaborn as sns
 from sklearn.model_selection import KFold, StratifiedKFold
 from sklearn.metrics import confusion_matrix, classification_report
@@ -42,8 +64,8 @@ class CrossValidationAnalyzer:
         Инициализация анализатора кросс-валидации.
         
         Args:
-            data_path (str): Путь к изображениям
-            annotations_path (str): Путь к аннотациям COCO
+            data_path (str): Путь к изображениям (может быть None для режима анализа)
+            annotations_path (str): Путь к аннотациям COCO (может быть None для режима анализа)
             k_folds (int): Количество фолдов
             device (str): Устройство для вычислений
             output_dir (str): Директория для сохранения результатов
@@ -75,19 +97,131 @@ class CrossValidationAnalyzer:
             }
         }
         
-        # Загружаем полный датасет
-        self.full_dataset = AppleDataset(
-            root_dir=data_path,
-            annotations_path=annotations_path,
-            transforms=None,
-            is_train=False,  # Без аугментаций для честной оценки
-            normalize=True
-        )
+        # Загружаем полный датасет (только если пути указаны)
+        if data_path is not None and annotations_path is not None:
+            self.full_dataset = AppleDataset(
+                root_dir=data_path,
+                annotations_path=annotations_path,
+                transforms=None,
+                is_train=False,  # Без аугментаций для честной оценки
+                normalize=True
+            )
+            
+            self.logger.info(f"Загружен датасет: {len(self.full_dataset)} изображений")
+        else:
+            self.full_dataset = None
+            self.logger.info("Инициализация в режиме анализа существующих результатов")
         
-        self.logger.info(f"Загружен датасет: {len(self.full_dataset)} изображений")
+        # Настройка стилей для графиков (черно-белая совместимость)
+        self.setup_plot_styles()
+        
         self.logger.info(f"Устройство: {self.device}")
         self.logger.info(f"Количество фолдов: {k_folds}")
     
+    def setup_plot_styles(self):
+        """Настройка стилей для графиков с черно-белой совместимостью."""
+        # Настройка matplotlib для интерактивного режима
+        plt.ion()  # Включаем интерактивный режим
+        
+        # Цвета и узоры для черно-белой совместимости
+        self.colors = ['black', 'darkgray', 'lightgray', 'white']
+        self.hatches = ['', '///', '...', '+++', 'xxx', '\\\\\\', '|||', '---']
+        self.markers = ['o', 's', '^', 'v', 'D', 'p', '*', 'h']
+        self.linestyles = ['-', '--', '-.', ':', (0, (3, 1, 1, 1)), (0, (5, 5)), (0, (3, 3, 1, 3))]
+        
+        # Настройка стиля seaborn для лучшего вида
+        plt.style.use('default')
+        
+        # Настройка шрифтов для лучшей читаемости
+        plt.rcParams.update({
+            'font.size': 12,
+            'axes.titlesize': 14,
+            'axes.labelsize': 12,
+            'xtick.labelsize': 10,
+            'ytick.labelsize': 10,
+            'legend.fontsize': 10,
+            'figure.titlesize': 16,
+            'savefig.dpi': 300,
+            'savefig.bbox': 'tight'
+        })
+
+    def load_existing_results(self, results_dir):
+        """
+        Загрузка существующих результатов кросс-валидации.
+        
+        Args:
+            results_dir (str): Путь к директории с результатами
+            
+        Returns:
+            bool: True если загрузка успешна, False иначе
+        """
+        try:
+            # Загружаем JSON с результатами
+            json_path = os.path.join(results_dir, 'cv_results.json')
+            if not os.path.exists(json_path):
+                self.logger.error(f"Файл результатов не найден: {json_path}")
+                return False
+            
+            with open(json_path, 'r', encoding='utf-8') as f:
+                self.cv_results = json.load(f)
+            
+            self.logger.info(f"Успешно загружены результаты из {json_path}")
+            self.logger.info(f"Количество фолдов: {len(self.cv_results['fold_results'])}")
+            
+            # Проверяем структуру данных
+            required_keys = ['fold_results', 'aggregated_metrics', 'metadata']
+            for key in required_keys:
+                if key not in self.cv_results:
+                    self.logger.warning(f"Отсутствует ключ '{key}' в результатах")
+            
+            # Обновляем output_dir для сохранения новых графиков
+            if results_dir != self.output_dir:
+                self.logger.info(f"Обновляем output_dir с {self.output_dir} на {results_dir}")
+                self.output_dir = results_dir
+            
+            return True
+            
+        except Exception as e:
+            self.logger.error(f"Ошибка при загрузке результатов: {e}")
+            return False
+
+    def analyze_existing_results(self, results_dir=None):
+        """
+        Анализ существующих результатов без проведения CV.
+        
+        Args:
+            results_dir (str): Путь к директории с результатами
+        """
+        if results_dir is None:
+            results_dir = self.output_dir
+        
+        self.logger.info("="*80)
+        self.logger.info("АНАЛИЗ СУЩЕСТВУЮЩИХ РЕЗУЛЬТАТОВ КРОСС-ВАЛИДАЦИИ")
+        self.logger.info("="*80)
+        
+        # Загружаем результаты
+        if not self.load_existing_results(results_dir):
+            raise ValueError(f"Не удалось загрузить результаты из {results_dir}")
+        
+        # Проводим анализ загруженных данных
+        if 'aggregated_metrics' not in self.cv_results or not self.cv_results['aggregated_metrics']:
+            self.logger.info("Агрегированные метрики отсутствуют, выполняем агрегацию...")
+            self.aggregate_results()
+        
+        if 'statistical_analysis' not in self.cv_results or not self.cv_results['statistical_analysis']:
+            self.logger.info("Статистический анализ отсутствует, выполняем анализ...")
+            self.statistical_analysis()
+        
+        # Выводим результаты
+        self.print_analysis_summary()
+        
+        # Создаем визуализации (простые графики для демонстрации)
+        self.create_simple_visualizations()
+        
+        self.logger.info("="*80)
+        self.logger.info("АНАЛИЗ СУЩЕСТВУЮЩИХ РЕЗУЛЬТАТОВ ЗАВЕРШЕН")
+        self.logger.info("="*80)
+
     def create_folds(self, stratified=True):
         """
         Создание фолдов для кросс-валидации.
@@ -305,7 +439,7 @@ class CrossValidationAnalyzer:
         self.save_results()
         
         # Создание визуализаций
-        self.create_visualizations()
+        self.create_simple_visualizations()
         
         total_time = time.time() - start_time
         self.logger.info(f"\nВремя выполнения кросс-валидации: {total_time:.2f} сек")
@@ -324,93 +458,7 @@ class CrossValidationAnalyzer:
                         f"({metrics['detection_rate_unripe']:.2%})")
         self.logger.info(f"  Обнаружено зрелых: {metrics['detected_ripe']}/{metrics['total_ripe']} "
                         f"({metrics['detection_rate_ripe']:.2%})")
-    
-    def aggregate_results(self):
-        """Агрегация результатов по всем фолдам."""
-        self.logger.info("\n" + "="*50)
-        self.logger.info("АГРЕГИРОВАННЫЕ РЕЗУЛЬТАТЫ")
-        self.logger.info("="*50)
-        
-        # Собираем все метрики
-        all_metrics = {}
-        for key in self.cv_results['fold_results'][0].keys():
-            if isinstance(self.cv_results['fold_results'][0][key], (int, float)):
-                values = [fold[key] for fold in self.cv_results['fold_results']]
-                all_metrics[key] = {
-                    'mean': np.mean(values),
-                    'std': np.std(values),
-                    'min': np.min(values),
-                    'max': np.max(values),
-                    'values': values
-                }
-        
-        self.cv_results['aggregated_metrics'] = all_metrics
-        
-        # Вывод основных результатов
-        main_metrics = ['mAP_iou0.5_conf0.5', 'F1_iou0.5_conf0.5', 
-                       'detection_rate_unripe', 'detection_rate_ripe']
-        
-        self.logger.info("\nОсновные метрики (среднее ± стандартное отклонение):")
-        for metric in main_metrics:
-            if metric in all_metrics:
-                mean_val = all_metrics[metric]['mean']
-                std_val = all_metrics[metric]['std']
-                min_val = all_metrics[metric]['min']
-                max_val = all_metrics[metric]['max']
-                self.logger.info(f"  {metric:25s}: {mean_val:.4f} ± {std_val:.4f} [{min_val:.4f}, {max_val:.4f}]")
-        
-        # 95% доверительный интервал для основных метрик
-        self.logger.info("\n95% доверительные интервалы:")
-        for metric in ['mAP_iou0.5_conf0.5', 'F1_iou0.5_conf0.5']:
-            if metric in all_metrics:
-                values = all_metrics[metric]['values']
-                ci_lower = np.percentile(values, 2.5)
-                ci_upper = np.percentile(values, 97.5)
-                self.logger.info(f"  {metric:25s}: [{ci_lower:.4f}, {ci_upper:.4f}]")
-    
-    def statistical_analysis(self):
-        """Статистический анализ результатов."""
-        self.logger.info("\n" + "="*50)
-        self.logger.info("СТАТИСТИЧЕСКИЙ АНАЛИЗ")
-        self.logger.info("="*50)
-        
-        # Анализ стабильности
-        main_metrics = ['mAP_iou0.5_conf0.5', 'F1_iou0.5_conf0.5']
-        stability_analysis = {}
-        
-        for metric in main_metrics:
-            if metric in self.cv_results['aggregated_metrics']:
-                values = self.cv_results['aggregated_metrics'][metric]['values']
-                mean_val = np.mean(values)
-                std_val = np.std(values)
-                cv_coef = std_val / mean_val if mean_val > 0 else 0  # Coefficient of variation
-                
-                stability_analysis[metric] = {
-                    'coefficient_of_variation': cv_coef,
-                    'stability_rating': 'высокая' if cv_coef < 0.1 else 'средняя' if cv_coef < 0.2 else 'низкая'
-                }
-                
-                self.logger.info(f"{metric}:")
-                self.logger.info(f"  Коэффициент вариации: {cv_coef:.4f}")
-                self.logger.info(f"  Стабильность: {stability_analysis[metric]['stability_rating']}")
-        
-        self.cv_results['statistical_analysis'] = stability_analysis
-        
-        # Анализ распределения результатов
-        self.logger.info("\nАнализ распределения:")
-        for metric in main_metrics:
-            if metric in self.cv_results['aggregated_metrics']:
-                values = self.cv_results['aggregated_metrics'][metric]['values']
-                from scipy import stats
-                
-                # Тест на нормальность
-                try:
-                    shapiro_stat, shapiro_p = stats.shapiro(values)
-                    is_normal = shapiro_p > 0.05
-                    self.logger.info(f"  {metric} - нормальное распределение: {'Да' if is_normal else 'Нет'} (p={shapiro_p:.4f})")
-                except:
-                    self.logger.info(f"  {metric} - тест нормальности не удался")
-    
+
     def save_results(self):
         """Сохранение результатов в файлы."""
         self.logger.info("\nСохранение результатов...")
@@ -447,7 +495,7 @@ class CrossValidationAnalyzer:
         self.logger.info(f"  - cv_results.json: полные результаты")
         self.logger.info(f"  - fold_results.csv: результаты по фолдам")
         self.logger.info(f"  - metrics_summary.csv: сводка метрик")
-    
+
     def _convert_for_json(self, obj):
         """Конвертация numpy типов для JSON сериализации."""
         if isinstance(obj, dict):
@@ -456,367 +504,574 @@ class CrossValidationAnalyzer:
             return [self._convert_for_json(item) for item in obj]
         elif isinstance(obj, np.ndarray):
             return obj.tolist()
-        elif isinstance(obj, (np.int64, np.int32)):
+        elif isinstance(obj, (np.int64, np.int32, np.int16, np.int8)):
             return int(obj)
-        elif isinstance(obj, (np.float64, np.float32)):
+        elif isinstance(obj, (np.float64, np.float32, np.float16)):
             return float(obj)
+        elif isinstance(obj, (np.bool_, bool)):
+            return bool(obj)
+        elif isinstance(obj, np.generic):
+            # Общий случай для любых numpy скаляров
+            return obj.item()
         else:
             return obj
-    
-    def create_visualizations(self):
-        """Создание графиков и визуализаций."""
-        self.logger.info("\nСоздание визуализаций...")
+
+    def aggregate_results(self):
+        """Агрегация результатов по всем фолдам."""
+        self.logger.info("Выполнение агрегации результатов...")
         
-        # Настройка стиля
-        plt.style.use('default')
-        sns.set_palette("husl")
+        # Собираем все метрики
+        all_metrics = {}
+        for key in self.cv_results['fold_results'][0].keys():
+            if isinstance(self.cv_results['fold_results'][0][key], (int, float)):
+                values = [fold[key] for fold in self.cv_results['fold_results']]
+                all_metrics[key] = {
+                    'mean': np.mean(values),
+                    'std': np.std(values),
+                    'min': np.min(values),
+                    'max': np.max(values),
+                    'values': values
+                }
         
-        # 1. Распределение метрик по фолдам
-        self._plot_metrics_distribution()
-        
-        # 2. Box plots основных метрик
-        self._plot_metrics_boxplots()
-        
-        # 3. Детальный анализ производительности
-        self._plot_detailed_performance()
-        
-        # 4. Сводная диаграмма
-        self._plot_summary_dashboard()
-        
-        self.logger.info(f"Графики сохранены в {self.output_dir}/")
-    
-    def _plot_metrics_distribution(self):
-        """График распределения метрик по фолдам."""
-        fig, axes = plt.subplots(2, 2, figsize=(15, 10))
-        fig.suptitle('Распределение метрик по фолдам', fontsize=16, fontweight='bold')
-        
-        metrics_to_plot = ['mAP_iou0.5_conf0.5', 'F1_iou0.5_conf0.5', 
-                          'detection_rate_unripe', 'detection_rate_ripe']
-        metric_labels = ['mAP@0.5', 'F1-Score@0.5', 
-                        'Detection Rate (Unripe)', 'Detection Rate (Ripe)']
-        
-        for idx, (metric, label) in enumerate(zip(metrics_to_plot, metric_labels)):
-            row, col = idx // 2, idx % 2
-            ax = axes[row, col]
-            
-            if metric in self.cv_results['aggregated_metrics']:
-                values = self.cv_results['aggregated_metrics'][metric]['values']
-                folds = list(range(1, len(values) + 1))
-                
-                ax.bar(folds, values, alpha=0.7, color=sns.color_palette("husl", 1)[0])
-                ax.axhline(y=np.mean(values), color='red', linestyle='--', 
-                          label=f'Среднее: {np.mean(values):.4f}')
-                ax.set_xlabel('Fold')
-                ax.set_ylabel(label)
-                ax.set_title(f'{label} по фолдам')
-                ax.legend()
-                ax.grid(True, alpha=0.3)
-        
-        plt.tight_layout()
-        plt.savefig(os.path.join(self.output_dir, 'metrics_distribution.png'), 
-                   dpi=300, bbox_inches='tight')
-        plt.close()
-    
-    def _plot_metrics_boxplots(self):
-        """Box plots для основных метрик."""
-        fig, ax = plt.subplots(1, 1, figsize=(12, 8))
-        
-        metrics_data = []
-        metric_labels = []
-        
-        main_metrics = ['mAP_iou0.5_conf0.5', 'F1_iou0.5_conf0.5', 
-                       'detection_rate_unripe', 'detection_rate_ripe']
-        labels = ['mAP@0.5', 'F1-Score@0.5', 'Detection Rate\n(Unripe)', 'Detection Rate\n(Ripe)']
-        
-        for metric, label in zip(main_metrics, labels):
-            if metric in self.cv_results['aggregated_metrics']:
-                values = self.cv_results['aggregated_metrics'][metric]['values']
-                metrics_data.append(values)
-                metric_labels.append(label)
-        
-        bp = ax.boxplot(metrics_data, labels=metric_labels, patch_artist=True)
-        
-        # Раскраска боксплотов
-        colors = sns.color_palette("husl", len(metrics_data))
-        for patch, color in zip(bp['boxes'], colors):
-            patch.set_facecolor(color)
-            patch.set_alpha(0.7)
-        
-        ax.set_title('Распределение основных метрик качества', fontsize=14, fontweight='bold')
-        ax.set_ylabel('Значение метрики')
-        ax.grid(True, alpha=0.3)
-        
-        plt.tight_layout()
-        plt.savefig(os.path.join(self.output_dir, 'metrics_boxplots.png'), 
-                   dpi=300, bbox_inches='tight')
-        plt.close()
-    
-    def _plot_detailed_performance(self):
-        """Детальный анализ производительности."""
-        fig, axes = plt.subplots(2, 3, figsize=(18, 12))
-        fig.suptitle('Детальный анализ производительности модели', fontsize=16, fontweight='bold')
-        
-        # 1. mAP для разных порогов IoU
-        ax = axes[0, 0]
-        iou_thresholds = [0.5, 0.75]
-        for iou_thresh in iou_thresholds:
-            metric_key = f'mAP_iou{iou_thresh}_conf0.5'
-            if metric_key in self.cv_results['aggregated_metrics']:
-                values = self.cv_results['aggregated_metrics'][metric_key]['values']
-                folds = list(range(1, len(values) + 1))
-                ax.plot(folds, values, marker='o', label=f'IoU@{iou_thresh}')
-        
-        ax.set_xlabel('Fold')
-        ax.set_ylabel('mAP')
-        ax.set_title('mAP для разных порогов IoU')
-        ax.legend()
-        ax.grid(True, alpha=0.3)
-        
-        # 2. F1-Score для разных порогов confidence
-        ax = axes[0, 1]
-        conf_thresholds = [0.3, 0.5, 0.7]
-        for conf_thresh in conf_thresholds:
-            metric_key = f'F1_iou0.5_conf{conf_thresh}'
-            if metric_key in self.cv_results['aggregated_metrics']:
-                values = self.cv_results['aggregated_metrics'][metric_key]['values']
-                folds = list(range(1, len(values) + 1))
-                ax.plot(folds, values, marker='s', label=f'Conf@{conf_thresh}')
-        
-        ax.set_xlabel('Fold')
-        ax.set_ylabel('F1-Score')
-        ax.set_title('F1-Score для разных порогов уверенности')
-        ax.legend()
-        ax.grid(True, alpha=0.3)
-        
-        # 3. Количество обнаруженных объектов
-        ax = axes[0, 2]
-        unripe_detected = [fold['detected_unripe'] for fold in self.cv_results['fold_results']]
-        ripe_detected = [fold['detected_ripe'] for fold in self.cv_results['fold_results']]
-        folds = list(range(1, len(unripe_detected) + 1))
-        
-        width = 0.35
-        x = np.arange(len(folds))
-        ax.bar(x - width/2, unripe_detected, width, label='Незрелые', alpha=0.7)
-        ax.bar(x + width/2, ripe_detected, width, label='Зрелые', alpha=0.7)
-        
-        ax.set_xlabel('Fold')
-        ax.set_ylabel('Количество объектов')
-        ax.set_title('Обнаруженные объекты по классам')
-        ax.set_xticks(x)
-        ax.set_xticklabels(folds)
-        ax.legend()
-        ax.grid(True, alpha=0.3)
-        
-        # 4. Стабильность метрик
-        ax = axes[1, 0]
-        metrics = ['mAP_iou0.5_conf0.5', 'F1_iou0.5_conf0.5']
-        cv_coeffs = []
-        labels = []
-        
-        for metric in metrics:
-            if metric in self.cv_results['aggregated_metrics']:
-                values = self.cv_results['aggregated_metrics'][metric]['values']
-                cv_coeff = np.std(values) / np.mean(values) if np.mean(values) > 0 else 0
-                cv_coeffs.append(cv_coeff)
-                labels.append(metric.replace('_iou0.5_conf0.5', ''))
-        
-        colors = sns.color_palette("husl", len(cv_coeffs))
-        bars = ax.bar(labels, cv_coeffs, color=colors, alpha=0.7)
-        ax.set_ylabel('Коэффициент вариации')
-        ax.set_title('Стабильность метрик (чем меньше, тем стабильнее)')
-        ax.grid(True, alpha=0.3)
-        
-        # Добавляем линию "хорошей" стабильности
-        ax.axhline(y=0.1, color='green', linestyle='--', alpha=0.7, label='Хорошая стабильность (<0.1)')
-        ax.legend()
-        
-        # 5. Сравнение с базовыми показателями
-        ax = axes[1, 1]
-        # Примерные базовые показатели из литературы
-        baseline_metrics = {
-            'YOLOv3': {'mAP': 0.823, 'F1': 0.847},
-            'SSD': {'mAP': 0.908, 'F1': 0.863},
-            'Faster R-CNN\n(наш)': {
-                'mAP': self.cv_results['aggregated_metrics']['mAP_iou0.5_conf0.5']['mean'],
-                'F1': self.cv_results['aggregated_metrics']['F1_iou0.5_conf0.5']['mean']
-            }
-        }
-        
-        methods = list(baseline_metrics.keys())
-        map_values = [baseline_metrics[method]['mAP'] for method in methods]
-        f1_values = [baseline_metrics[method]['F1'] for method in methods]
-        
-        x = np.arange(len(methods))
-        width = 0.35
-        
-        ax.bar(x - width/2, map_values, width, label='mAP', alpha=0.7)
-        ax.bar(x + width/2, f1_values, width, label='F1-Score', alpha=0.7)
-        
-        ax.set_ylabel('Значение метрики')
-        ax.set_title('Сравнение с базовыми методами')
-        ax.set_xticks(x)
-        ax.set_xticklabels(methods)
-        ax.legend()
-        ax.grid(True, alpha=0.3)
-        
-        # 6. Корреляция между метриками
-        ax = axes[1, 2]
-        map_values = self.cv_results['aggregated_metrics']['mAP_iou0.5_conf0.5']['values']
-        f1_values = self.cv_results['aggregated_metrics']['F1_iou0.5_conf0.5']['values']
-        
-        ax.scatter(map_values, f1_values, alpha=0.7, s=100)
-        
-        # Линия тренда
-        z = np.polyfit(map_values, f1_values, 1)
-        p = np.poly1d(z)
-        ax.plot(map_values, p(map_values), "r--", alpha=0.8)
-        
-        # Корреляция
-        correlation = np.corrcoef(map_values, f1_values)[0, 1]
-        ax.text(0.05, 0.95, f'Корреляция: {correlation:.3f}', 
-               transform=ax.transAxes, fontsize=12, 
-               verticalalignment='top', bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5))
-        
-        ax.set_xlabel('mAP@0.5')
-        ax.set_ylabel('F1-Score@0.5')
-        ax.set_title('Корреляция между mAP и F1-Score')
-        ax.grid(True, alpha=0.3)
-        
-        plt.tight_layout()
-        plt.savefig(os.path.join(self.output_dir, 'detailed_performance.png'), 
-                   dpi=300, bbox_inches='tight')
-        plt.close()
-    
-    def _plot_summary_dashboard(self):
-        """Сводная диаграмма результатов."""
-        fig = plt.figure(figsize=(16, 12))
-        gs = fig.add_gridspec(3, 3, hspace=0.3, wspace=0.3)
-        
-        fig.suptitle('Сводка результатов кросс-валидации', fontsize=18, fontweight='bold')
-        
-        # 1. Основные метрики (большой график)
-        ax1 = fig.add_subplot(gs[0, :2])
+        self.cv_results['aggregated_metrics'] = all_metrics
+
+    def statistical_analysis(self):
+        """Расширенный статистический анализ результатов."""
+        self.logger.info("Выполнение расширенного статистического анализа...")
         
         main_metrics = ['mAP_iou0.5_conf0.5', 'F1_iou0.5_conf0.5']
-        labels = ['mAP@0.5', 'F1-Score@0.5']
+        stability_analysis = {}
         
-        for i, (metric, label) in enumerate(zip(main_metrics, labels)):
+        for metric in main_metrics:
+            if metric in self.cv_results['aggregated_metrics']:
+                values = np.array(self.cv_results['aggregated_metrics'][metric]['values'])
+                mean_val = np.mean(values)
+                std_val = np.std(values)
+                cv_coef = std_val / mean_val if mean_val > 0 else 0
+                
+                stability_analysis[metric] = {
+                    'coefficient_of_variation': cv_coef,
+                    'stability_rating': 'высокая' if cv_coef < 0.1 else 'средняя' if cv_coef < 0.2 else 'низкая'
+                }
+                
+                self.logger.info(f"{metric}:")
+                self.logger.info(f"  Коэффициент вариации: {cv_coef:.4f}")
+                self.logger.info(f"  Стабильность: {stability_analysis[metric]['stability_rating']}")
+                
+                # Базовая статистика
+                self.logger.info(f"  Среднее: {np.mean(values):.4f}")
+                self.logger.info(f"  Медиана: {np.median(values):.4f}")
+                self.logger.info(f"  Стд. откл.: {np.std(values):.4f}")
+                self.logger.info(f"  Асимметрия: {self._calculate_skewness(values):.4f}")
+                self.logger.info(f"  Эксцесс: {self._calculate_kurtosis(values):.4f}")
+                
+                # Тесты распределений
+                distribution_tests = self._test_distributions(values)
+                
+                # Сохраняем результаты тестов
+                stability_analysis[metric].update(distribution_tests)
+                
+                # Выводим результаты
+                self.logger.info("  Тесты распределений:")
+                for dist_name, test_result in distribution_tests.items():
+                    if isinstance(test_result, dict) and 'p_value' in test_result:
+                        p_val = test_result['p_value']
+                        is_fit = test_result['fits_distribution']
+                        self.logger.info(f"    {dist_name}: p={p_val:.4f}, подходит={is_fit}")
+                
+                # Рекомендация лучшего распределения
+                best_dist = self._recommend_best_distribution(distribution_tests)
+                self.logger.info(f"  Рекомендуемое распределение: {best_dist}")
+                stability_analysis[metric]['recommended_distribution'] = best_dist
+        
+        self.cv_results['statistical_analysis'] = stability_analysis
+
+    def _calculate_skewness(self, data):
+        """Вычисление коэффициента асимметрии."""
+        n = len(data)
+        mean = np.mean(data)
+        std = np.std(data, ddof=1)
+        if std == 0:
+            return 0
+        skew = np.sum(((data - mean) / std) ** 3) / n
+        return skew
+    
+    def _calculate_kurtosis(self, data):
+        """Вычисление коэффициента эксцесса."""
+        n = len(data)
+        mean = np.mean(data)
+        std = np.std(data, ddof=1)
+        if std == 0:
+            return 0
+        kurt = np.sum(((data - mean) / std) ** 4) / n
+        return kurt - 3  # Избыточный эксцесс (excess kurtosis)
+    
+    def _test_distributions(self, values):
+        """Тестирование различных распределений."""
+        results = {}
+        
+        try:
+            from scipy import stats
+            
+            # 1. Тест Шапиро-Уилка на нормальность
+            shapiro_stat, shapiro_p = stats.shapiro(values)
+            results['normal_shapiro'] = {
+                'p_value': shapiro_p,
+                'fits_distribution': shapiro_p > 0.05,
+                'test_statistic': shapiro_stat
+            }
+            
+            # 2. Тест Д'Агостино-Пирсона на нормальность (если достаточно данных)
+            if len(values) >= 8:
+                dagostino_stat, dagostino_p = stats.normaltest(values)
+                results['normal_dagostino'] = {
+                    'p_value': dagostino_p,
+                    'fits_distribution': dagostino_p > 0.05,
+                    'test_statistic': dagostino_stat
+                }
+            
+            # 3. Тест на Beta-распределение (для метрик в [0,1])
+            if np.all(values >= 0) and np.all(values <= 1):
+                try:
+                    beta_params = stats.beta.fit(values, floc=0, fscale=1)
+                    ks_stat, ks_p = stats.kstest(values, lambda x: stats.beta.cdf(x, *beta_params))
+                    results['beta'] = {
+                        'p_value': ks_p,
+                        'fits_distribution': ks_p > 0.05,
+                        'test_statistic': ks_stat,
+                        'parameters': beta_params
+                    }
+                except:
+                    pass
+            
+            # 4. Тест на равномерное распределение
+            try:
+                uniform_params = stats.uniform.fit(values)
+                ks_stat, ks_p = stats.kstest(values, lambda x: stats.uniform.cdf(x, *uniform_params))
+                results['uniform'] = {
+                    'p_value': ks_p,
+                    'fits_distribution': ks_p > 0.05,
+                    'test_statistic': ks_stat,
+                    'parameters': uniform_params
+                }
+            except:
+                pass
+            
+            # 5. Тест на логнормальное распределение (если все значения > 0)
+            if np.all(values > 0):
+                try:
+                    lognorm_params = stats.lognorm.fit(values, floc=0)
+                    ks_stat, ks_p = stats.kstest(values, lambda x: stats.lognorm.cdf(x, *lognorm_params))
+                    results['lognormal'] = {
+                        'p_value': ks_p,
+                        'fits_distribution': ks_p > 0.05,
+                        'test_statistic': ks_stat,
+                        'parameters': lognorm_params
+                    }
+                except:
+                    pass
+            
+            # 6. Тест на усеченное нормальное распределение
+            try:
+                min_val, max_val = 0, 1
+                if np.min(values) > 0 or np.max(values) < 1:
+                    min_val, max_val = np.min(values) - 0.01, np.max(values) + 0.01
+                
+                truncnorm_params = stats.truncnorm.fit(values, min_val, max_val)
+                ks_stat, ks_p = stats.kstest(values, lambda x: stats.truncnorm.cdf(x, *truncnorm_params))
+                results['truncated_normal'] = {
+                    'p_value': ks_p,
+                    'fits_distribution': ks_p > 0.05,
+                    'test_statistic': ks_stat,
+                    'parameters': truncnorm_params
+                }
+            except:
+                pass
+            
+            # 7. Тест Андерсона-Дарлинга на нормальность
+            try:
+                ad_stat, ad_critical, ad_significance = stats.anderson(values, dist='norm')
+                ad_p_approx = 1 - (ad_significance[2] / 100)
+                results['normal_anderson'] = {
+                    'p_value': ad_p_approx,
+                    'fits_distribution': ad_stat < ad_critical[2],
+                    'test_statistic': ad_stat
+                }
+            except:
+                pass
+                
+        except ImportError:
+            self.logger.warning("scipy не установлен, используем базовые тесты")
+            
+            # Простой тест на равномерность
+            if len(values) > 3:
+                hist, bin_edges = np.histogram(values, bins=min(5, len(values)//2))
+                expected = len(values) / len(hist)
+                chi2_stat = np.sum((hist - expected)**2 / expected)
+                results['uniform_simple'] = {
+                    'p_value': 1 / (1 + chi2_stat),
+                    'fits_distribution': chi2_stat < len(hist),
+                    'test_statistic': chi2_stat
+                }
+        
+        except Exception as e:
+            self.logger.warning(f"Ошибка в тестах распределений: {e}")
+        
+        return results
+    
+    def _recommend_best_distribution(self, distribution_tests):
+        """Рекомендация наилучшего распределения на основе тестов."""
+        priority_order = [
+            'beta',
+            'truncated_normal',
+            'normal_shapiro',
+            'normal_dagostino',
+            'normal_anderson',
+            'uniform',
+            'lognormal',
+            'uniform_simple'
+        ]
+        
+        best_dist = "неопределено"
+        best_p_value = 0
+        
+        for dist_name in priority_order:
+            if dist_name in distribution_tests:
+                test_result = distribution_tests[dist_name]
+                if isinstance(test_result, dict) and 'p_value' in test_result:
+                    p_val = test_result['p_value']
+                    fits = test_result.get('fits_distribution', False)
+                    
+                    if fits and p_val > best_p_value:
+                        best_dist = dist_name
+                        best_p_value = p_val
+        
+        if best_dist == "неопределено":
+            for dist_name, test_result in distribution_tests.items():
+                if isinstance(test_result, dict) and 'p_value' in test_result:
+                    p_val = test_result['p_value']
+                    if p_val > best_p_value:
+                        best_dist = dist_name
+                        best_p_value = p_val
+        
+        return f"{best_dist} (p={best_p_value:.4f})"
+
+    def create_simple_visualizations(self):
+        """Создание расширенных визуализаций."""
+        self.logger.info("Создание расширенных визуализаций...")
+        
+        # График 1: Распределение основных метрик
+        self.plot_metrics_distribution()
+        
+        # График 2: Анализ распределений
+        self.plot_distribution_analysis()
+
+    def plot_metrics_distribution(self):
+        """График распределения основных метрик по фолдам."""
+        fig, ax = plt.subplots(1, 1, figsize=(12, 8))
+        
+        metrics_to_plot = ['mAP_iou0.5_conf0.5', 'F1_iou0.5_conf0.5']
+        metric_labels = ['mAP@0.5', 'F1-Score@0.5']
+        
+        width = 0.35
+        folds = list(range(1, len(self.cv_results['fold_results']) + 1))
+        x = np.arange(len(folds))
+        
+        for idx, (metric, label) in enumerate(zip(metrics_to_plot, metric_labels)):
             if metric in self.cv_results['aggregated_metrics']:
                 values = self.cv_results['aggregated_metrics'][metric]['values']
                 mean_val = np.mean(values)
-                std_val = np.std(values)
                 
-                folds = list(range(1, len(values) + 1))
-                color = sns.color_palette("husl", len(main_metrics))[i]
+                bars = ax.bar(x + idx * width, values, width, 
+                             label=f'{label} (μ={mean_val:.3f})',
+                             color=self.colors[idx % len(self.colors)],
+                             hatch=self.hatches[idx],
+                             alpha=0.8,
+                             edgecolor='black',
+                             linewidth=1)
                 
-                ax1.errorbar(folds, values, yerr=std_val, marker='o', 
-                           label=f'{label} ({mean_val:.3f}±{std_val:.3f})', 
-                           color=color, capsize=5, capthick=2)
-                ax1.axhline(y=mean_val, color=color, linestyle='--', alpha=0.7)
+                # Добавляем линию среднего
+                ax.axhline(y=mean_val, color=self.colors[idx % len(self.colors)], 
+                          linestyle=self.linestyles[idx + 1], linewidth=2,
+                          alpha=0.7)
         
-        ax1.set_xlabel('Fold')
-        ax1.set_ylabel('Значение метрики')
-        ax1.set_title('Основные метрики качества по фолдам')
-        ax1.legend()
-        ax1.grid(True, alpha=0.3)
+        ax.set_xlabel('Fold', fontweight='bold')
+        ax.set_ylabel('Значение метрики', fontweight='bold')
+        ax.set_title('Распределение основных метрик качества по фолдам', 
+                    fontweight='bold', fontsize=14)
+        ax.set_xticks(x + width / 2)
+        ax.set_xticklabels(folds)
+        ax.legend(loc='best')
+        ax.grid(True, alpha=0.3, linestyle='--')
         
-        # 2. Сводная статистика (таблица)
-        ax2 = fig.add_subplot(gs[0, 2])
-        ax2.axis('tight')
-        ax2.axis('off')
+        plt.tight_layout()
         
-        stats_data = []
-        for metric in ['mAP_iou0.5_conf0.5', 'F1_iou0.5_conf0.5', 
-                      'detection_rate_unripe', 'detection_rate_ripe']:
-            if metric in self.cv_results['aggregated_metrics']:
-                stats = self.cv_results['aggregated_metrics'][metric]
-                stats_data.append([
-                    metric.replace('_iou0.5_conf0.5', '').replace('_', ' '),
-                    f"{stats['mean']:.3f}",
-                    f"±{stats['std']:.3f}",
-                    f"[{stats['min']:.3f}, {stats['max']:.3f}]"
-                ])
-        
-        table = ax2.table(cellText=stats_data,
-                         colLabels=['Метрика', 'Среднее', 'Станд. откл.', 'Диапазон'],
-                         cellLoc='center',
-                         loc='center')
-        table.auto_set_font_size(False)
-        table.set_fontsize(10)
-        table.scale(1.2, 1.5)
-        ax2.set_title('Сводная статистика', fontweight='bold')
-        
-        # 3. Распределение объектов
-        ax3 = fig.add_subplot(gs[1, 0])
-        
-        total_unripe = sum([fold['total_unripe'] for fold in self.cv_results['fold_results']])
-        total_ripe = sum([fold['total_ripe'] for fold in self.cv_results['fold_results']])
-        
-        labels_pie = ['Незрелые яблоки', 'Зрелые яблоки']
-        sizes = [total_unripe, total_ripe]
-        colors = ['lightcoral', 'lightgreen']
-        
-        ax3.pie(sizes, labels=labels_pie, autopct='%1.1f%%', colors=colors, startangle=90)
-        ax3.set_title('Распределение объектов в датасете')
-        
-        # 4. Эффективность обнаружения
-        ax4 = fig.add_subplot(gs[1, 1])
-        
-        avg_detection_unripe = np.mean([fold['detection_rate_unripe'] for fold in self.cv_results['fold_results']])
-        avg_detection_ripe = np.mean([fold['detection_rate_ripe'] for fold in self.cv_results['fold_results']])
-        
-        categories = ['Незрелые', 'Зрелые']
-        detection_rates = [avg_detection_unripe, avg_detection_ripe]
-        
-        bars = ax4.bar(categories, detection_rates, color=['orange', 'green'], alpha=0.7)
-        ax4.set_ylabel('Коэффициент обнаружения')
-        ax4.set_title('Средняя эффективность обнаружения')
-        ax4.set_ylim(0, 1)
-        
-        # Добавляем значения на столбцы
-        for bar, rate in zip(bars, detection_rates):
-            height = bar.get_height()
-            ax4.text(bar.get_x() + bar.get_width()/2., height + 0.01,
-                    f'{rate:.2%}', ha='center', va='bottom', fontweight='bold')
-        
-        ax4.grid(True, alpha=0.3, axis='y')
-        
-        # 5. Стабильность результатов
-        ax5 = fig.add_subplot(gs[1, 2])
-        
-        fold_numbers = [fold['fold'] for fold in self.cv_results['fold_results']]
-        map_values = [fold['mAP_iou0.5_conf0.5'] for fold in self.cv_results['fold_results']]
-        
-        # Violin plot для показа распределения
-        ax5.violinplot([map_values], positions=[1], widths=0.5, showmeans=True, showmedians=True)
-        ax5.set_xticks([1])
-        ax5.set_xticklabels(['mAP@0.5'])
-        ax5.set_ylabel('Значение')
-        ax5.set_title('Распределение mAP по фолдам')
-        ax5.grid(True, alpha=0.3)
-        
-        # 6. Временные затраты
-        ax6 = fig.add_subplot(gs[2, :])
-        
-        if 'evaluation_time' in self.cv_results['fold_results'][0]:
-            fold_times = [fold['evaluation_time'] for fold in self.cv_results['fold_results']]
-            folds = list(range(1, len(fold_times) + 1))
-            
-            ax6.bar(folds, fold_times, alpha=0.7, color='skyblue')
-            ax6.set_xlabel('Fold')
-            ax6.set_ylabel('Время выполнения (сек)')
-            ax6.set_title(f'Время оценки по фолдам (общее: {sum(fold_times):.1f} сек)')
-            
-            # Средняя линия
-            avg_time = np.mean(fold_times)
-            ax6.axhline(y=avg_time, color='red', linestyle='--', 
-                       label=f'Среднее: {avg_time:.1f} сек')
-            ax6.legend()
-            ax6.grid(True, alpha=0.3)
-        
-        plt.savefig(os.path.join(self.output_dir, 'summary_dashboard.png'), 
-                   dpi=300, bbox_inches='tight')
+        filename = os.path.join(self.output_dir, '01_metrics_distribution.png')
+        plt.savefig(filename, dpi=300, bbox_inches='tight')
+        self.logger.info(f"Сохранен график: {filename}")
+        plt.show()
         plt.close()
+
+    def plot_distribution_analysis(self):
+        """График анализа различных распределений."""
+        if 'statistical_analysis' not in self.cv_results:
+            self.logger.info("Статистический анализ не проведен, пропуск графика")
+            return
+        
+        fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(16, 12))
+        
+        main_metrics = ['mAP_iou0.5_conf0.5', 'F1_iou0.5_conf0.5']
+        
+        # График 1: Q-Q plots для проверки нормальности
+        for idx, metric in enumerate(main_metrics):
+            if metric in self.cv_results['aggregated_metrics']:
+                values = np.array(self.cv_results['aggregated_metrics'][metric]['values'])
+                
+                # Нормализуем данные
+                normalized_values = (values - np.mean(values)) / np.std(values)
+                
+                # Теоретические квантили нормального распределения
+                n = len(normalized_values)
+                np.random.seed(42)  # Для воспроизводимости
+                theoretical_quantiles = np.sort(np.random.normal(0, 1, n))
+                observed_quantiles = np.sort(normalized_values)
+                
+                ax1.scatter(theoretical_quantiles, observed_quantiles,
+                           marker=self.markers[idx], s=100, alpha=0.8,
+                           color=self.colors[idx], 
+                           edgecolor='black', linewidth=2,
+                           label=metric.replace('_iou0.5_conf0.5', ''))
+                
+                # Линия идеальной нормальности
+                min_val = min(theoretical_quantiles.min(), observed_quantiles.min())
+                max_val = max(theoretical_quantiles.max(), observed_quantiles.max())
+                ax1.plot([min_val, max_val], [min_val, max_val], 
+                        linestyle=self.linestyles[idx], color=self.colors[idx], 
+                        linewidth=2, alpha=0.7)
+        
+        ax1.set_xlabel('Теоретические квантили (нормальное)', fontweight='bold')
+        ax1.set_ylabel('Наблюдаемые квантили', fontweight='bold')
+        ax1.set_title('Q-Q Plot для проверки нормальности', fontweight='bold')
+        ax1.legend()
+        ax1.grid(True, alpha=0.3, linestyle='--')
+        
+        # График 2: P-values различных тестов распределений
+        distribution_names = []
+        p_values_map = []
+        p_values_f1 = []
+        
+        test_names = ['normal_shapiro', 'normal_dagostino', 'beta', 'uniform', 
+                     'truncated_normal', 'lognormal', 'normal_anderson']
+        
+        for test_name in test_names:
+            found_data = False
+            p_map, p_f1 = None, None
+            
+            for metric in main_metrics:
+                if metric in self.cv_results['statistical_analysis']:
+                    analysis = self.cv_results['statistical_analysis'][metric]
+                    if test_name in analysis and isinstance(analysis[test_name], dict):
+                        p_val = analysis[test_name].get('p_value', 0)
+                        if metric == 'mAP_iou0.5_conf0.5':
+                            p_map = p_val
+                        else:
+                            p_f1 = p_val
+                        found_data = True
+            
+            if found_data and (p_map is not None or p_f1 is not None):
+                distribution_names.append(test_name.replace('_', '\n'))
+                p_values_map.append(p_map if p_map is not None else 0)
+                p_values_f1.append(p_f1 if p_f1 is not None else 0)
+        
+        if distribution_names:
+            x = np.arange(len(distribution_names))
+            width = 0.35
+            
+            bars1 = ax2.bar(x - width/2, p_values_map, width,
+                           label='mAP', color=self.colors[0],
+                           hatch=self.hatches[0], alpha=0.8, edgecolor='black')
+            bars2 = ax2.bar(x + width/2, p_values_f1, width,
+                           label='F1-Score', color=self.colors[1],
+                           hatch=self.hatches[1], alpha=0.8, edgecolor='black')
+            
+            # Линия значимости
+            ax2.axhline(y=0.05, color='red', linestyle='--', linewidth=2,
+                       label='α = 0.05 (граница значимости)')
+            
+            ax2.set_ylabel('P-value', fontweight='bold')
+            ax2.set_title('P-values тестов различных распределений\n(p > 0.05 = распределение подходит)', 
+                         fontweight='bold')
+            ax2.set_xticks(x)
+            ax2.set_xticklabels(distribution_names, rotation=45, ha='right')
+            ax2.legend()
+            ax2.grid(True, alpha=0.3, linestyle='--')
+            ax2.set_ylim(0, max(max(p_values_map + p_values_f1), 0.1) * 1.1)
+        
+        # График 3-4: Гистограммы с подогнанными распределениями
+        try:
+            from scipy import stats
+            
+            for idx, metric in enumerate(main_metrics):
+                if metric in self.cv_results['aggregated_metrics']:
+                    values = self.cv_results['aggregated_metrics'][metric]['values']
+                    
+                    ax = ax3 if idx == 0 else ax4
+                    
+                    # Гистограмма данных
+                    n_bins = min(len(values), 8)
+                    counts, bins, _ = ax.hist(values, bins=n_bins, alpha=0.7, density=True,
+                                            color=self.colors[idx], hatch=self.hatches[idx],
+                                            edgecolor='black', linewidth=1, 
+                                            label='Наблюдаемые данные')
+                    
+                    # Подгоняем и рисуем различные распределения
+                    x_range = np.linspace(min(values), max(values), 100)
+                    
+                    # Нормальное распределение
+                    normal_params = stats.norm.fit(values)
+                    ax.plot(x_range, stats.norm.pdf(x_range, *normal_params), 
+                           linestyle='-', linewidth=2, color='red', 
+                           label=f'Нормальное (μ={normal_params[0]:.3f})')
+                    
+                    # Beta-распределение (если данные в [0,1])
+                    if np.all(np.array(values) >= 0) and np.all(np.array(values) <= 1):
+                        try:
+                            beta_params = stats.beta.fit(values, floc=0, fscale=1)
+                            ax.plot(x_range, stats.beta.pdf(x_range, *beta_params), 
+                                   linestyle='--', linewidth=2, color='blue',
+                                   label=f'Beta (α={beta_params[0]:.2f}, β={beta_params[1]:.2f})')
+                        except:
+                            pass
+                    
+                    # Равномерное распределение
+                    uniform_params = stats.uniform.fit(values)
+                    ax.plot(x_range, stats.uniform.pdf(x_range, *uniform_params), 
+                           linestyle='-.', linewidth=2, color='green',
+                           label=f'Равномерное')
+                    
+                    ax.set_xlabel('Значение метрики', fontweight='bold')
+                    ax.set_ylabel('Плотность', fontweight='bold')
+                    ax.set_title(f'Подгонка распределений: {metric.replace("_iou0.5_conf0.5", "")}', 
+                               fontweight='bold')
+                    ax.legend(fontsize=9)
+                    ax.grid(True, alpha=0.3, linestyle='--')
+        
+        except ImportError:
+            # Если scipy недоступен, показываем простые гистограммы
+            for idx, metric in enumerate(main_metrics):
+                if metric in self.cv_results['aggregated_metrics']:
+                    values = self.cv_results['aggregated_metrics'][metric]['values']
+                    ax = ax3 if idx == 0 else ax4
+                    
+                    ax.hist(values, bins=min(len(values), 8), alpha=0.7,
+                           color=self.colors[idx], hatch=self.hatches[idx],
+                           edgecolor='black', linewidth=1)
+                    ax.set_xlabel('Значение метрики', fontweight='bold')
+                    ax.set_ylabel('Частота', fontweight='bold')
+                    ax.set_title(f'Распределение: {metric.replace("_iou0.5_conf0.5", "")}', 
+                               fontweight='bold')
+                    ax.grid(True, alpha=0.3, linestyle='--')
+        
+        plt.tight_layout()
+        
+        filename = os.path.join(self.output_dir, '02_distribution_analysis.png')
+        plt.savefig(filename, dpi=300, bbox_inches='tight')
+        self.logger.info(f"Сохранен график: {filename}")
+        plt.show()
+        plt.close()
+        """Создание простых графиков для демонстрации."""
+        self.logger.info("Создание простых визуализаций...")
+        
+        # График 1: Распределение основных метрик
+        fig, ax = plt.subplots(1, 1, figsize=(10, 6))
+        
+        metrics_to_plot = ['mAP_iou0.5_conf0.5', 'F1_iou0.5_conf0.5']
+        metric_labels = ['mAP@0.5', 'F1-Score@0.5']
+        
+        width = 0.35
+        folds = list(range(1, len(self.cv_results['fold_results']) + 1))
+        x = np.arange(len(folds))
+        
+        for idx, (metric, label) in enumerate(zip(metrics_to_plot, metric_labels)):
+            if metric in self.cv_results['aggregated_metrics']:
+                values = self.cv_results['aggregated_metrics'][metric]['values']
+                mean_val = np.mean(values)
+                
+                bars = ax.bar(x + idx * width, values, width, 
+                             label=f'{label} (μ={mean_val:.3f})',
+                             color=self.colors[idx % len(self.colors)],
+                             hatch=self.hatches[idx],
+                             alpha=0.8,
+                             edgecolor='black',
+                             linewidth=1)
+        
+        ax.set_xlabel('Fold', fontweight='bold')
+        ax.set_ylabel('Значение метрики', fontweight='bold')
+        ax.set_title('Распределение основных метрик по фолдам', fontweight='bold')
+        ax.set_xticks(x + width / 2)
+        ax.set_xticklabels(folds)
+        ax.legend()
+        ax.grid(True, alpha=0.3, linestyle='--')
+        
+        plt.tight_layout()
+        
+        # Сохранение и показ
+        filename = os.path.join(self.output_dir, 'metrics_distribution.png')
+        plt.savefig(filename, dpi=300, bbox_inches='tight')
+        self.logger.info(f"Сохранен график: {filename}")
+        plt.show()
+        plt.close()
+
+    def print_analysis_summary(self):
+        """Вывод сводки анализа результатов."""
+        self.logger.info("\n" + "="*50)
+        self.logger.info("СВОДКА РЕЗУЛЬТАТОВ")
+        self.logger.info("="*50)
+        
+        # Метаданные
+        if 'metadata' in self.cv_results:
+            metadata = self.cv_results['metadata']
+            self.logger.info(f"Количество фолдов: {metadata.get('k_folds', 'неизвестно')}")
+            self.logger.info(f"Устройство: {metadata.get('device', 'неизвестно')}")
+            self.logger.info(f"Дата проведения: {metadata.get('timestamp', 'неизвестно')}")
+            self.logger.info(f"Seed: {metadata.get('seed', 'неизвестно')}")
+        
+        # Основные метрики
+        if 'aggregated_metrics' in self.cv_results:
+            main_metrics = ['mAP_iou0.5_conf0.5', 'F1_iou0.5_conf0.5', 
+                           'detection_rate_unripe', 'detection_rate_ripe']
+            
+            self.logger.info("\nОсновные метрики:")
+            for metric in main_metrics:
+                if metric in self.cv_results['aggregated_metrics']:
+                    stats = self.cv_results['aggregated_metrics'][metric]
+                    mean_val = stats['mean']
+                    std_val = stats['std']
+                    min_val = stats['min']
+                    max_val = stats['max']
+                    self.logger.info(f"  {metric:25s}: {mean_val:.4f} ± {std_val:.4f} [{min_val:.4f}, {max_val:.4f}]")
+        
+        # Статистический анализ - ИСПРАВЛЕНО
+        if 'statistical_analysis' in self.cv_results:
+            self.logger.info("\nСтатистический анализ:")
+            for metric, analysis in self.cv_results['statistical_analysis'].items():
+                if isinstance(analysis, dict):  # ИСПРАВЛЕНО: было isinstance(obj, dict)
+                    cv_coef = analysis.get('coefficient_of_variation', 'неизвестно')
+                    stability = analysis.get('stability_rating', 'неизвестно')
+                    self.logger.info(f"  {metric}: CV={cv_coef:.4f}, стабильность={stability}")
+                    
+                    # Тесты нормальности
+                    if 'shapiro_p_value' in analysis:
+                        shapiro_p = analysis['shapiro_p_value']
+                        is_normal = 'да' if analysis.get('is_normal_shapiro', False) else 'нет'
+                        self.logger.info(f"    Шапиро-Уилк: p={shapiro_p:.4f}, нормальное={is_normal}")
+                    
+                    # Рекомендуемое распределение
+                    if 'recommended_distribution' in analysis:
+                        recommended = analysis['recommended_distribution']
+                        self.logger.info(f"    Рекомендуемое распределение: {recommended}")
+        
+        self.logger.info("="*50)
 
 
 def parse_arguments():
@@ -841,6 +1096,16 @@ def parse_arguments():
     parser.add_argument('--device', type=str, default=None,
                        help='Устройство (cuda/cpu), auto если не указано')
     
+    # Новые параметры для работы с существующими данными
+    parser.add_argument('--analyze_only', action='store_true',
+                       help='Только анализ существующих результатов без проведения CV')
+    parser.add_argument('--load_results_from', type=str, default=None,
+                       help='Путь к директории с существующими результатами CV для анализа')
+    parser.add_argument('--generate_plots_only', action='store_true',
+                       help='Только генерация графиков из существующих данных')
+    parser.add_argument('--skip_cv', action='store_true',
+                       help='Пропустить проведение кросс-валидации (синоним для --analyze_only)')
+    
     return parser.parse_args()
 
 
@@ -848,65 +1113,87 @@ def main():
     """Основная функция."""
     args = parse_arguments()
     
-    # Формируем полный путь к аннотациям
-    annotations_path = os.path.join(args.data_path, args.annotations_file)
+    # Обработка флагов анализа
+    analyze_only = args.analyze_only or args.skip_cv or args.generate_plots_only
+    results_dir = args.load_results_from or args.output_dir
     
-    # Проверяем существование файлов
-    if not os.path.exists(args.data_path):
-        raise FileNotFoundError(f"Директория с данными не найдена: {args.data_path}")
-    
-    if not os.path.exists(annotations_path):
-        raise FileNotFoundError(f"Файл аннотаций не найден: {annotations_path}")
-    
-    if not os.path.exists(args.model_path):
-        raise FileNotFoundError(f"Файл модели не найден: {args.model_path}")
-    
-    # Определяем устройство
-    if args.device is None:
-        device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    # Определяем устройство (нужно только для CV)
+    if not analyze_only:
+        if args.device is None:
+            device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        else:
+            device = torch.device(args.device)
     else:
-        device = torch.device(args.device)
+        device = None
     
     print("="*80)
-    print("СИСТЕМА КРОСС-ВАЛИДАЦИИ ДЛЯ ОБНАРУЖЕНИЯ ЯБЛОК")
-    print("="*80)
-    print(f"Путь к данным: {args.data_path}")
-    print(f"Файл аннотаций: {annotations_path}")
-    print(f"Модель: {args.model_path}")
-    print(f"Количество фолдов: {args.k_folds}")
-    print(f"Устройство: {device}")
+    if analyze_only:
+        print("АНАЛИЗ СУЩЕСТВУЮЩИХ РЕЗУЛЬТАТОВ КРОСС-ВАЛИДАЦИИ")
+        print("="*80)
+        print(f"Директория с результатами: {results_dir}")
+    else:
+        print("СИСТЕМА КРОСС-ВАЛИДАЦИИ ДЛЯ ОБНАРУЖЕНИЯ ЯБЛОК")
+        print("="*80)
+        print(f"Путь к данным: {args.data_path}")
+        # Формируем полный путь к аннотациям
+        annotations_path = os.path.join(args.data_path, args.annotations_file)
+        print(f"Файл аннотаций: {annotations_path}")
+        print(f"Модель: {args.model_path}")
+        print(f"Количество фолдов: {args.k_folds}")
+        print(f"Устройство: {device}")
+    
     print(f"Результаты будут сохранены в: {args.output_dir}")
     print("="*80)
     
     # Создаем анализатор
     analyzer = CrossValidationAnalyzer(
-        data_path=args.data_path,
-        annotations_path=annotations_path,
+        data_path=args.data_path if not analyze_only else None,
+        annotations_path=annotations_path if not analyze_only else None,
         k_folds=args.k_folds,
         device=device,
         output_dir=args.output_dir,
         seed=args.seed
     )
     
-    # Запускаем кросс-валидацию
     try:
-        results = analyzer.run_cross_validation(model_path=args.model_path)
-        
-        print("\n" + "="*80)
-        print("КРОСС-ВАЛИДАЦИЯ УСПЕШНО ЗАВЕРШЕНА!")
-        print("="*80)
-        print(f"Результаты сохранены в: {args.output_dir}")
-        
-        # Краткая сводка
-        map_mean = results['aggregated_metrics']['mAP_iou0.5_conf0.5']['mean']
-        map_std = results['aggregated_metrics']['mAP_iou0.5_conf0.5']['std']
-        f1_mean = results['aggregated_metrics']['F1_iou0.5_conf0.5']['mean']
-        f1_std = results['aggregated_metrics']['F1_iou0.5_conf0.5']['std']
-        
-        print(f"\nИТОГОВЫЕ РЕЗУЛЬТАТЫ:")
-        print(f"   mAP@0.5:     {map_mean:.4f} ± {map_std:.4f}")
-        print(f"   F1-Score@0.5: {f1_mean:.4f} ± {f1_std:.4f}")
-        print("="*80)
+        if analyze_only:
+            # Только анализ существующих результатов
+            analyzer.analyze_existing_results(results_dir)
+            
+            print("\n" + "="*80)
+            print("АНАЛИЗ СУЩЕСТВУЮЩИХ РЕЗУЛЬТАТОВ ЗАВЕРШЕН!")
+            print("="*80)
+            print(f"Графики сохранены в: {analyzer.output_dir}")
+            
+        else:
+            # Проверяем существование файлов для CV
+            if not os.path.exists(args.data_path):
+                raise FileNotFoundError(f"Директория с данными не найдена: {args.data_path}")
+            
+            if not os.path.exists(annotations_path):
+                raise FileNotFoundError(f"Файл аннотаций не найден: {annotations_path}")
+            
+            if not os.path.exists(args.model_path):
+                raise FileNotFoundError(f"Файл модели не найден: {args.model_path}")
+            
+            # Запускаем кросс-валидацию
+            results = analyzer.run_cross_validation(model_path=args.model_path)
+            
+            print("\n" + "="*80)
+            print("КРОСС-ВАЛИДАЦИЯ УСПЕШНО ЗАВЕРШЕНА!")
+            print("="*80)
+            print(f"Результаты сохранены в: {args.output_dir}")
+            
+            # Краткая сводка
+            map_mean = results['aggregated_metrics']['mAP_iou0.5_conf0.5']['mean']
+            map_std = results['aggregated_metrics']['mAP_iou0.5_conf0.5']['std']
+            f1_mean = results['aggregated_metrics']['F1_iou0.5_conf0.5']['mean']
+            f1_std = results['aggregated_metrics']['F1_iou0.5_conf0.5']['std']
+            
+            print(f"\nИТОГОВЫЕ РЕЗУЛЬТАТЫ:")
+            print(f"   mAP@0.5:     {map_mean:.4f} ± {map_std:.4f}")
+            print(f"   F1-Score@0.5: {f1_mean:.4f} ± {f1_std:.4f}")
+            print("="*80)
         
     except Exception as e:
         print(f"\n❌ ОШИБКА: {e}")

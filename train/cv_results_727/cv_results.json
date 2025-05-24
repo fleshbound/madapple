@@ -21,7 +21,7 @@
       "detection_rate_ripe": 0.9317619481703346,
       "fold": 1,
       "n_images": 134,
-      "evaluation_time": 26.346006631851196
+      "evaluation_time": 25.06572699546814
     },
     {
       "mAP_iou0.5_conf0.3": 0.597309780709752,
@@ -44,7 +44,7 @@
       "detection_rate_ripe": 0.9419747957346628,
       "fold": 2,
       "n_images": 134,
-      "evaluation_time": 25.72294282913208
+      "evaluation_time": 24.360763788223267
     },
     {
       "mAP_iou0.5_conf0.3": 0.5993538885386401,
@@ -67,7 +67,7 @@
       "detection_rate_ripe": 0.9878819131107387,
       "fold": 3,
       "n_images": 134,
-      "evaluation_time": 25.168697118759155
+      "evaluation_time": 24.768192768096924
     },
     {
       "mAP_iou0.5_conf0.3": 0.6414217680313861,
@@ -90,7 +90,7 @@
       "detection_rate_ripe": 0.9343129866867621,
       "fold": 4,
       "n_images": 134,
-      "evaluation_time": 25.601690769195557
+      "evaluation_time": 25.1470365524292
     },
     {
       "mAP_iou0.5_conf0.3": 0.5963872596467492,
@@ -113,7 +113,7 @@
       "detection_rate_ripe": 0.9440477735947034,
       "fold": 5,
       "n_images": 134,
-      "evaluation_time": 27.430063486099243
+      "evaluation_time": 25.46764302253723
     }
   ],
   "aggregated_metrics": {
@@ -378,137 +378,33 @@
       ]
     },
     "evaluation_time": {
-      "mean": 26.053880167007446,
-      "std": 0.7844440325744432,
-      "min": 25.168697118759155,
-      "max": 27.430063486099243,
+      "mean": 24.961872625350953,
+      "std": 0.37409058419917013,
+      "min": 24.360763788223267,
+      "max": 25.46764302253723,
       "values": [
-        26.346006631851196,
-        25.72294282913208,
-        25.168697118759155,
-        25.601690769195557,
-        27.430063486099243
+        25.06572699546814,
+        24.360763788223267,
+        24.768192768096924,
+        25.1470365524292,
+        25.46764302253723
       ]
     }
   },
   "statistical_analysis": {
     "mAP_iou0.5_conf0.5": {
       "coefficient_of_variation": 0.02843053772376074,
-      "stability_rating": "высокая",
-      "normal_shapiro": {
-        "p_value": 0.001763872503401077,
-        "fits_distribution": false,
-        "test_statistic": 0.635126571502031
-      },
-      "beta": {
-        "p_value": 0.20688838316332414,
-        "fits_distribution": true,
-        "test_statistic": 0.4435753519209102,
-        "parameters": [
-          478.04225492730984,
-          309.4424173395207,
-          0,
-          1
-        ]
-      },
-      "uniform": {
-        "p_value": 0.0051661410264505145,
-        "fits_distribution": false,
-        "test_statistic": 0.7037656708110914,
-        "parameters": [
-          0.5963872596467492,
-          0.04503450838463685
-        ]
-      },
-      "lognormal": {
-        "p_value": 0.2120049108923403,
-        "fits_distribution": true,
-        "test_statistic": 0.44109914024656227,
-        "parameters": [
-          0.027859736053415428,
-          0,
-          0.6068000138772895
-        ]
-      },
-      "truncated_normal": {
-        "p_value": 0.0052943296279620595,
-        "fits_distribution": false,
-        "test_statistic": 0.702513126509001,
-        "parameters": [
-          0.6101281097299285,
-          0.6558551752866417,
-          -0.004508715174050192,
-          0.9848683336673727
-        ]
-      },
-      "normal_anderson": {
-        "p_value": 0.95,
-        "fits_distribution": true,
-        "test_statistic": 0.9642562885345729
-      },
-      "recommended_distribution": "normal_anderson (p=0.9500)"
+      "stability_rating": "высокая"
     },
     "F1_iou0.5_conf0.5": {
       "coefficient_of_variation": 0.009369664215363557,
-      "stability_rating": "высокая",
-      "normal_shapiro": {
-        "p_value": 0.6513961998137467,
-        "fits_distribution": true,
-        "test_statistic": 0.937937599018408
-      },
-      "beta": {
-        "p_value": 0.8728704647788905,
-        "fits_distribution": true,
-        "test_statistic": 0.24046102169673916,
-        "parameters": [
-          3200.7968598819994,
-          1254.165916029582,
-          0,
-          1
-        ]
-      },
-      "uniform": {
-        "p_value": 0.5454146699561209,
-        "fits_distribution": true,
-        "test_statistic": 0.33009554780278133,
-        "parameters": [
-          0.7105129741438908,
-          0.017922114216308294
-        ]
-      },
-      "lognormal": {
-        "p_value": 0.8717743520980479,
-        "fits_distribution": true,
-        "test_statistic": 0.24084790946715928,
-        "parameters": [
-          0.009362656735897158,
-          0,
-          0.7184473251157443
-        ]
-      },
-      "truncated_normal": {
-        "p_value": 0.5466598577048638,
-        "fits_distribution": true,
-        "test_statistic": 0.32977564871526077,
-        "parameters": [
-          0.7109008553100495,
-          0.7245361243855157,
-          -0.22391016551063794,
-          1.3144210867098516
-        ]
-      },
-      "normal_anderson": {
-        "p_value": 0.95,
-        "fits_distribution": true,
-        "test_statistic": 0.22710715475847643
-      },
-      "recommended_distribution": "normal_anderson (p=0.9500)"
+      "stability_rating": "высокая"
     }
   },
   "metadata": {
     "k_folds": 5,
     "device": "cuda",
-    "timestamp": "2025-05-25T00:34:42.380337",
+    "timestamp": "2025-05-24T18:22:29.760899",
     "seed": 42
   }
 }

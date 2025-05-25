@@ -13,3 +13,4 @@ inference/test_results/**
 *.png
 inference/in/**
 inference/out/**
+train_yolo/**

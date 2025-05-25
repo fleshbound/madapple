@@ -1,0 +1,32 @@
+{
+  "faster_rcnn": {
+    "mean_time_seconds": 0.04476835489273071,
+    "std_time_seconds": 0.0005258708489770564,
+    "min_time_seconds": 0.04348733425140381,
+    "max_time_seconds": 0.045858144760131836,
+    "median_time_seconds": 0.044692826271057126,
+    "images_processed": 50,
+    "mean_time_ms": 44.76835489273071,
+    "std_time_ms": 0.5258708489770564
+  },
+  "fcos": {
+    "mean_time_seconds": 0.04195333242416382,
+    "std_time_seconds": 0.0004229832692774899,
+    "min_time_seconds": 0.04114999771118164,
+    "max_time_seconds": 0.04265773296356201,
+    "median_time_seconds": 0.041887664794921876,
+    "images_processed": 50,
+    "mean_time_ms": 41.95333242416382,
+    "std_time_ms": 0.42298326927748986
+  },
+  "retinanet": {
+    "mean_time_seconds": 0.04108548402786255,
+    "std_time_seconds": 0.0005152920645008429,
+    "min_time_seconds": 0.04033803939819336,
+    "max_time_seconds": 0.04271423816680908,
+    "median_time_seconds": 0.04115474224090576,
+    "images_processed": 50,
+    "mean_time_ms": 41.08548402786255,
+    "std_time_ms": 0.5152920645008429
+  }
+}

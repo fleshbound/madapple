@@ -1,0 +1,161 @@
+2025-05-25 10:24:31,939 - apple_detector - INFO - Logger setup complete. This message should appear in both console and log file.
+2025-05-25 10:24:32,024 - apple_detector - INFO - Используется устройство: cuda
+2025-05-25 10:24:32,258 - apple_detector - INFO - Загружены данные: 536 обучающих, 134 валидационных
+2025-05-25 10:24:32,262 - apple_detector - INFO - Загружено тестовых изображений: 331
+2025-05-25 10:24:33,028 - apple_detector - INFO - Загружена обученная модель Faster R-CNN ResNet50
+2025-05-25 10:24:33,032 - apple_detector - INFO - Измерение времени инференса для Faster R-CNN ResNet50...
+2025-05-25 10:27:17,433 - apple_detector - INFO - Logger setup complete. This message should appear in both console and log file.
+2025-05-25 10:27:17,449 - apple_detector - INFO - Используется устройство: cuda
+2025-05-25 10:27:17,638 - apple_detector - INFO - Загружены данные: 536 обучающих, 134 валидационных
+2025-05-25 10:27:17,638 - apple_detector - INFO - Загружено тестовых изображений: 331
+2025-05-25 10:27:18,295 - apple_detector - INFO - Загружена обученная модель Faster R-CNN ResNet50
+2025-05-25 10:27:18,295 - apple_detector - INFO - Измерение времени инференса для Faster R-CNN ResNet50...
+2025-05-25 10:27:24,979 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:24,979 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:24,979 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:24,979 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:24,995 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,017 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,017 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,048 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,048 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,079 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,079 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,117 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,117 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,148 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,164 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,180 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,195 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,217 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,217 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,249 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,264 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,280 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,295 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,318 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,333 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,349 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,364 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,396 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,396 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,418 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,433 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,465 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,465 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,496 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,496 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,518 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,534 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,565 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,565 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,596 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,596 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,634 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,634 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,665 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,665 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,696 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,696 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,734 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,734 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,765 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,765 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,797 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,797 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,834 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,834 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,866 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,919 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,919 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,950 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,950 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,982 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:25,982 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:26,019 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:26,019 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:26,051 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:26,051 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:26,082 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:26,082 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:26,120 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:26,120 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:26,151 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:26,151 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:26,182 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:26,182 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:26,220 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:26,220 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:26,251 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:26,267 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:26,282 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:26,298 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:26,320 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:27:26,336 - apple_detector - ERROR - Ошибка при инференсе: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same
+2025-05-25 10:30:02,047 - apple_detector - INFO - Logger setup complete. This message should appear in both console and log file.
+2025-05-25 10:30:02,063 - apple_detector - INFO - Используется устройство: cuda
+2025-05-25 10:30:02,079 - apple_detector - INFO - CUDA устройство: NVIDIA GeForce RTX 4060
+2025-05-25 10:30:02,079 - apple_detector - INFO - CUDA память: 8.0 GB
+2025-05-25 10:30:02,253 - apple_detector - INFO - Загружены данные: 536 обучающих, 134 валидационных
+2025-05-25 10:30:02,263 - apple_detector - INFO - Загружено тестовых изображений: 331
+2025-05-25 10:30:02,909 - apple_detector - INFO - Загружена обученная модель Faster R-CNN ResNet50
+2025-05-25 10:30:02,939 - apple_detector - INFO - Измерение времени инференса для Faster R-CNN ResNet50...
+2025-05-25 10:30:26,625 - apple_detector - INFO - Faster R-CNN ResNet50 - Среднее время инференса: 0.0486±0.0481s
+2025-05-25 10:30:26,625 - apple_detector - INFO - Faster R-CNN ResNet50 - Среднее количество детекций на изображение: 0.00
+2025-05-25 10:30:26,625 - apple_detector - INFO - Faster R-CNN ResNet50 - Обработано изображений: 331
+2025-05-25 10:44:07,151 - apple_detector - INFO - Logger setup complete. This message should appear in both console and log file.
+2025-05-25 10:44:07,182 - apple_detector - INFO - Используется устройство: cuda
+2025-05-25 10:44:07,182 - apple_detector - INFO - CUDA устройство: NVIDIA GeForce RTX 4060
+2025-05-25 10:44:07,182 - apple_detector - INFO - CUDA память: 8.0 GB
+2025-05-25 10:44:07,368 - apple_detector - INFO - Загружены данные: 536 обучающих, 134 валидационных
+2025-05-25 10:44:07,368 - apple_detector - INFO - Загружено тестовых изображений: 331
+2025-05-25 10:44:08,027 - apple_detector - INFO - Загружена обученная модель Faster R-CNN ResNet50
+2025-05-25 10:44:08,065 - apple_detector - INFO - Измерение времени инференса для Faster R-CNN ResNet50...
+2025-05-25 10:44:31,438 - apple_detector - INFO - Faster R-CNN ResNet50 - Среднее время инференса: 0.0478±0.0172s
+2025-05-25 10:44:31,438 - apple_detector - INFO - Faster R-CNN ResNet50 - Среднее количество детекций на изображение: 0.00
+2025-05-25 10:44:31,438 - apple_detector - INFO - Faster R-CNN ResNet50 - Обработано изображений: 331
+2025-05-25 10:44:31,438 - apple_detector - INFO - Загружены результаты Faster R-CNN ResNet50
+2025-05-25 10:44:31,438 - apple_detector - INFO - 
+Начало обучения Faster R-CNN MobileNet...
+2025-05-25 10:44:31,438 - apple_detector - INFO - Начало обучения Faster R-CNN MobileNet...
+2025-05-25 10:44:35,214 - apple_detector - ERROR - Ошибка при обучении Faster R-CNN MobileNet: ReduceLROnPlateau.__init__() got an unexpected keyword argument 'verbose'
+2025-05-25 10:44:35,214 - apple_detector - INFO - 
+Начало обучения SSD MobileNet...
+2025-05-25 10:44:35,214 - apple_detector - INFO - Начало обучения SSD MobileNet...
+2025-05-25 10:44:41,898 - apple_detector - ERROR - Ошибка при обучении SSD MobileNet: 'SSDClassificationHead' object has no attribute 'num_anchors'
+2025-05-25 10:44:41,913 - apple_detector - INFO - 
+Начало обучения Fast R-CNN...
+2025-05-25 10:44:41,913 - apple_detector - INFO - Начало обучения Fast R-CNN...
+2025-05-25 10:44:42,237 - apple_detector - ERROR - Ошибка при обучении Fast R-CNN: ReduceLROnPlateau.__init__() got an unexpected keyword argument 'verbose'
+2025-05-25 10:44:42,245 - apple_detector - INFO - Создание сравнительных графиков...
+2025-05-25 10:47:18,548 - apple_detector - INFO - Logger setup complete. This message should appear in both console and log file.
+2025-05-25 10:47:18,564 - apple_detector - INFO - Используется устройство: cuda
+2025-05-25 10:47:18,579 - apple_detector - INFO - CUDA устройство: NVIDIA GeForce RTX 4060
+2025-05-25 10:47:18,579 - apple_detector - INFO - CUDA память: 8.0 GB
+2025-05-25 10:47:18,769 - apple_detector - INFO - Загружены данные: 536 обучающих, 134 валидационных
+2025-05-25 10:47:18,769 - apple_detector - INFO - Загружено тестовых изображений: 331
+2025-05-25 10:47:19,457 - apple_detector - INFO - Загружена обученная модель Faster R-CNN ResNet50
+2025-05-25 10:47:19,487 - apple_detector - INFO - Измерение времени инференса для Faster R-CNN ResNet50...
+2025-05-25 10:47:43,130 - apple_detector - INFO - Faster R-CNN ResNet50 - Среднее время инференса: 0.0475±0.0282s
+2025-05-25 10:47:43,130 - apple_detector - INFO - Faster R-CNN ResNet50 - Среднее количество детекций на изображение: 0.00
+2025-05-25 10:47:43,130 - apple_detector - INFO - Faster R-CNN ResNet50 - Обработано изображений: 331
+2025-05-25 10:47:43,130 - apple_detector - INFO - Загружены результаты Faster R-CNN ResNet50
+2025-05-25 10:47:43,130 - apple_detector - INFO - 
+Начало обучения Faster R-CNN MobileNet...
+2025-05-25 10:47:43,130 - apple_detector - INFO - Начало обучения Faster R-CNN MobileNet...
+2025-05-25 10:47:51,697 - apple_detector - ERROR - Ошибка при обучении Faster R-CNN MobileNet: name 'optimizer' is not defined
+2025-05-25 10:47:51,697 - apple_detector - INFO - 
+Начало обучения SSD MobileNet...
+2025-05-25 10:47:51,705 - apple_detector - INFO - Начало обучения SSD MobileNet...
+2025-05-25 10:47:52,987 - apple_detector - ERROR - Ошибка при обучении SSD MobileNet: 'SSDClassificationHead' object has no attribute 'num_anchors'
+2025-05-25 10:47:52,995 - apple_detector - INFO - 
+Начало обучения Fast R-CNN...
+2025-05-25 10:47:52,995 - apple_detector - INFO - Начало обучения Fast R-CNN...
+2025-05-25 10:48:51,053 - apple_detector - INFO - Logger setup complete. This message should appear in both console and log file.
+2025-05-25 10:48:51,084 - apple_detector - INFO - Используется устройство: cuda
+2025-05-25 10:48:51,084 - apple_detector - INFO - CUDA устройство: NVIDIA GeForce RTX 4060
+2025-05-25 10:48:51,084 - apple_detector - INFO - CUDA память: 8.0 GB
+2025-05-25 10:48:51,268 - apple_detector - INFO - Загружены данные: 536 обучающих, 134 валидационных
+2025-05-25 10:48:51,270 - apple_detector - INFO - Загружено тестовых изображений: 331
+2025-05-25 10:48:51,916 - apple_detector - INFO - Загружена обученная модель Faster R-CNN ResNet50
+2025-05-25 10:48:51,949 - apple_detector - INFO - Измерение времени инференса для Faster R-CNN ResNet50...

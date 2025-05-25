@@ -1,0 +1,15 @@
+*.pth
+**/__pycache__/**
+*.xml
+*.csv
+data/**
+research/brightness_result/**
+train/logs/**
+research/logs/**
+inference/test_results/**
+.idea/**
+.mypy_cache/**
+*.xlsx
+*.png
+inference/in/**
+inference/out/**

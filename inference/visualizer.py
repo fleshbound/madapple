@@ -36,6 +36,116 @@ def print_detections(results):
     print(f"Незрелых яблок: {unripe_count}")
     print(f"Зрелых яблок: {ripe_count}")
     print(f"Всего яблок: {unripe_count + ripe_count}")
+    
+def draw_styled_rectangle(draw, bbox, color, line_style='solid', width=2):
+    """
+    Рисует прямоугольник с заданным стилем линии.
+    
+    Args:
+        draw: объект ImageDraw
+        bbox: координаты рамки [x1, y1, x2, y2]
+        color: цвет линии (RGB кортеж)
+        line_style: стиль линии ('solid', 'dashed', 'dotted')
+        width: толщина линии
+    """
+    x1, y1, x2, y2 = bbox
+    
+    if line_style == 'solid':
+        # Обычный сплошной прямоугольник
+        draw.rectangle([x1, y1, x2, y2], outline=color, width=width)
+    
+    elif line_style == 'dashed':
+        # Пунктирная линия
+        dash_length = 8
+        gap_length = 4
+        
+        # Верхняя линия
+        draw_dashed_line(draw, x1, y1, x2, y1, color, dash_length, gap_length, width)
+        # Правая линия
+        draw_dashed_line(draw, x2, y1, x2, y2, color, dash_length, gap_length, width)
+        # Нижняя линия
+        draw_dashed_line(draw, x2, y2, x1, y2, color, dash_length, gap_length, width)
+        # Левая линия
+        draw_dashed_line(draw, x1, y2, x1, y1, color, dash_length, gap_length, width)
+    
+    elif line_style == 'dotted':
+        # Точечная линия
+        dot_size = 2
+        gap_length = 3
+        
+        # Верхняя линия
+        draw_dotted_line(draw, x1, y1, x2, y1, color, dot_size, gap_length, width)
+        # Правая линия
+        draw_dotted_line(draw, x2, y1, x2, y2, color, dot_size, gap_length, width)
+        # Нижняя линия
+        draw_dotted_line(draw, x2, y2, x1, y2, color, dot_size, gap_length, width)
+        # Левая линия
+        draw_dotted_line(draw, x1, y2, x1, y1, color, dot_size, gap_length, width)
+
+def draw_dashed_line(draw, x1, y1, x2, y2, color, dash_length, gap_length, width):
+    """Рисует пунктирную линию между двумя точками."""
+    import math
+    
+    # Вычисляем длину и направление линии
+    dx = x2 - x1
+    dy = y2 - y1
+    length = math.sqrt(dx*dx + dy*dy)
+    
+    if length == 0:
+        return
+    
+    # Нормализуем направление
+    dx /= length
+    dy /= length
+    
+    # Рисуем пунктиры
+    pos = 0
+    while pos < length:
+        # Начало пунктира
+        start_x = x1 + dx * pos
+        start_y = y1 + dy * pos
+        
+        # Конец пунктира
+        end_pos = min(pos + dash_length, length)
+        end_x = x1 + dx * end_pos
+        end_y = y1 + dy * end_pos
+        
+        # Рисуем пунктир
+        draw.line([start_x, start_y, end_x, end_y], fill=color, width=width)
+        
+        # Переходим к следующему пунктиру
+        pos += dash_length + gap_length
+
+def draw_dotted_line(draw, x1, y1, x2, y2, color, dot_size, gap_length, width):
+    """Рисует точечную линию между двумя точками."""
+    import math
+    
+    # Вычисляем длину и направление линии
+    dx = x2 - x1
+    dy = y2 - y1
+    length = math.sqrt(dx*dx + dy*dy)
+    
+    if length == 0:
+        return
+    
+    # Нормализуем направление
+    dx /= length
+    dy /= length
+    
+    # Рисуем точки
+    pos = 0
+    step = dot_size + gap_length
+    while pos < length:
+        # Позиция точки
+        dot_x = x1 + dx * pos
+        dot_y = y1 + dy * pos
+        
+        # Рисуем точку как маленький эллипс
+        draw.ellipse([dot_x - width//2, dot_y - width//2, 
+                     dot_x + width//2, dot_y + width//2], 
+                    fill=color, outline=color)
+        
+        pos += step
 
 def visualize_results(image, results, output_path=None, show_image=True, show_labels=True):
     """
@@ -54,6 +164,11 @@ def visualize_results(image, results, output_path=None, show_image=True, show_la
     colors = {
         1: (255, 255, 0),  # Желтый для незрелых яблок (RGB)
         2: (255, 0, 0)     # Красный для зрелых яблок (RGB)
+    }
+    
+    line_style = {
+        1: 'dashed',
+        2: 'solid'
     }
     
     # Названия классов
@@ -108,7 +223,8 @@ def visualize_results(image, results, output_path=None, show_image=True, show_la
         color_rgb = colors.get(label, (255, 255, 255))
         
         # Рисуем рамку
-        draw.rectangle([x1, y1, x2, y2], outline=color_rgb, width=2)
+        draw_styled_rectangle(draw, box, color_rgb, line_style.get(label, 'solid'))
+        # draw.rectangle([x1, y1, x2, y2], outline=color_rgb, width=2)
         
         if show_labels:
             # Текст с меткой и уверенностью
